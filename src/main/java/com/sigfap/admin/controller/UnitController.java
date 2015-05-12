@@ -70,7 +70,7 @@ public class UnitController{
 		try{
 			dao3.persist(address);
 		}catch(Exception e){}
-		unit.setEndereco(address);
+		unit.setEndereco(address); //mudar nome de DAOs
 		try{
 			dao2.persist(unit);
 			telephone.setUnidadeT(unit);

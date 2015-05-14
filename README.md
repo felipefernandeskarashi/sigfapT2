@@ -1,2 +1,0 @@
-# SIGFAP versão JAVA
-

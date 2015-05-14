@@ -38,11 +38,11 @@
 				<a href="${pageContext.request.contextPath}/user" title="Users"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Users</span></a>
 			</li>
 			<li>
-				<a href="index.html" title="Gas Station"><i class="fa fa-lg fa-fw fa-tachometer"></i> <span class="menu-item-parent">Gas Station</span></a>
+				<a href="${pageContext.request.contextPath}/registrar-instituicao" title="Criar Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Criar Instituição</span></a>
 			</li>
 			
 			<li>
-				<a href="index.html" title="Checkins"><i class="fa fa-lg fa-fw fa-map-marker"></i> <span class="menu-item-parent">Checkins</span></a>
+				<a href="${pageContext.request.contextPath}/inserir-unidade" title="Inserir Unidade"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Inserir Unidade</span></a>
 			</li>
 		</ul>
 	</nav>

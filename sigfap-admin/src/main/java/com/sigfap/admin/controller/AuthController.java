@@ -53,7 +53,7 @@ public class AuthController {
 	@Post
 	@Path("/signup")
 	public void signup(User user) {
-		validator.addIf(dao.loginExists(user.getEmail()), new SimpleMessage(
+		validator.addIf(dao.loginExists(user.getLogin()), new SimpleMessage(
 				"nome", "login.already.exists"));
 		validator.onErrorRedirectTo(this).index();
 
@@ -61,8 +61,8 @@ public class AuthController {
 		 * Login == e-mail
 		 * */
 
-		user.setLogin(user.getEmail());
-		user.setPassword(DigestUtils.shaHex(user.getPassword()));
+		user.setLogin(user.getLogin());
+		user.setSenha(DigestUtils.shaHex(user.getSenha()));
 		try {
 			dao.persist(user);
 
@@ -82,7 +82,7 @@ public class AuthController {
 		User userLogged = null;
 
 		try {
-			userLogged = dao.authentication(user.getLogin(), user.getPassword());
+			userLogged = dao.authentication(user.getLogin(), user.getSenha());
 			
 			if(userLogged == null)
 			{
@@ -113,4 +113,12 @@ public class AuthController {
 		result.redirectTo(this).index();
 		
 	}
+	/*@Public
+	@Post
+	@Path("/register")
+	public void register(){
+		result.redirectTo(RegisterController.class).index();
+	}*/
+	
+	
 }

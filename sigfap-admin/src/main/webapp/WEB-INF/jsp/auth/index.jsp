@@ -61,7 +61,7 @@
 				<span id="logo"> <img src="${pageContext.request.contextPath}/static/img/logo.png" alt="sigfap"> </span>
 			</div>
 
-			<span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="register.html" class="btn btn-danger">Create account</a> </span>
+			<span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="${pageContext.request.contextPath}/register" class="btn btn-danger">Create account</a> </span>
 
 		</header>
 
@@ -122,7 +122,7 @@
 									<section>
 										<label class="label">Password</label>
 										<label class="input"> <i class="icon-append fa fa-lock"></i>
-											<input type="password" name="user.password">
+											<input type="password" name="user.senha">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
 										<div class="note">
 											<a href="forgotpassword.html">Forgot password?</a>

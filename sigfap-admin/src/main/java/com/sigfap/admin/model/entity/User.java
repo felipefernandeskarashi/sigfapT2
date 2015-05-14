@@ -1,8 +1,6 @@
 package com.sigfap.admin.model.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user")
+@Table(name="usuario")
 public class User implements Serializable
 {
 
@@ -19,42 +17,19 @@ public class User implements Serializable
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@Column(name="usuario_id")
 	private Integer id;
 	
-	@Column(name="user_login")
+	@Column(name="usuario_login")
 	private String login;
 	
-	@Column(name="user_name")
-	private String name;
+	@Column(name="usuario_senha")
+	private String senha;
 	
-	@Column(name="user_password")
-	private String password;
-	
-	
-	@Column(name="user_email")
-	private String email;
-	
-
-	@Column(name="user_deleted")
-	private boolean isDeleted = false;
-	
-	@Column(name="user_active")
-	private Boolean isActive = true;
-	
-	@Column(name="user_created_at")
-	private Date createdAt;
-	
-	@Column(name="user_updated_at")
-	private Date updatedAt;
-	
-	
-	public User ()
-	{
-		this.createdAt = new Date();
-		this.updatedAt = new Date();
+	public User(){
+		
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -71,69 +46,12 @@ public class User implements Serializable
 		this.login = login;
 	}
 
-	public String getName() {
-		return name;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public boolean getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", name=" + name
-				+ ", password=" + password + ", email=" + email
-				+ ", isDeleted=" + isDeleted + ", isActive=" + isActive
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
-	}
-	
 }

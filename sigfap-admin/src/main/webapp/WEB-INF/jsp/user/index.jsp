@@ -139,12 +139,8 @@
 													
 												</tr>
 									            <tr>
-								                    <th data-class="expand">Name</th>
+								                    <th data-class="expand">Login</th>
 								                    
-								                    <th data-hide="phone">Login</th>
-								                    <th data-hide="phone">Email</th>
-								                    <th data-hide="phone,tablet">Create date</th>
-								                    <th data-hide="phone,tablet">Last Login</th>
 								                    <th>#</th>
 									            </tr>
 									        </thead>
@@ -152,12 +148,9 @@
 									        <tbody>
 									           	<c:forEach var="user" items="${users}">
 									            <tr>
-									                <td>${user.name}</td>
-									                <td>${user.login}</td>
-									                <td>${user.email}</td>
 									                
-									                <td>${user.createdAt}</td>
-									                <td>${user.createdAt}</td>
+									                <td>${user.login}</td>
+									                
 									                <td>
 									                		<a href="${linkTo[UserController].edit}${user.id}" class="btn btn-primary btn-circle btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
 									                		<a href="${linkTo[UserController].delete}${user.id}" class="btn btn-primary btn-circle btn-danger"><i class="glyphicon glyphicon-remove"></i></a>

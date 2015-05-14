@@ -37,7 +37,7 @@ public class UserDAO extends HibernateDAO<User, Integer> {
 		if (user.size() == 0)
 			throw new Exception("user.notfound");
 
-		if (user.get(0).getPassword().equals(DigestUtils.shaHex(password)))
+		if (user.get(0).getSenha().equals(DigestUtils.shaHex(password)))
 			return user.get(0);
 		
 		

@@ -5,9 +5,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.password">senha</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost/sigfap</property>
-        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">Ytgejh5g2</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://10.88.5.52:473/g3_db</property>
+        <property name="hibernate.connection.username">g3</property>
         <property name="hibernate.default_schema">public</property>
         <property name="hibernate.dialect">com.sigfap.admin.model.dao.SpecificPostgreSQLDialect</property>
              
@@ -20,6 +20,15 @@
         <property name="hibernate.current_session_context_class">thread</property>
         
         <mapping class="com.sigfap.admin.model.entity.User"/>
+        <mapping class="com.sigfap.admin.model.entity.Address"/>
+        <mapping class="com.sigfap.admin.model.entity.City"/>
+        <mapping class="com.sigfap.admin.model.entity.Country"/>
+        <mapping class="com.sigfap.admin.model.entity.Institution"/>
+        <mapping class="com.sigfap.admin.model.entity.Sector"/>
+        <mapping class="com.sigfap.admin.model.entity.State"/>
+        <mapping class="com.sigfap.admin.model.entity.Telephone"/>
+        <mapping class="com.sigfap.admin.model.entity.Unit"/>
+        
         
     </session-factory>
 </hibernate-configuration>

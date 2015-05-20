@@ -448,18 +448,6 @@ Contractology supply a wide variety of commercial legal documents, such as <a hr
 		<!-- MAIN APP JS FILE -->
 		
 		
-		<script src="jquery-1.3.2.min.js" type="text/javascript"></script>   
-<script>
-$(document).ready(function(){
-   $("#inst_estr").click(function(evento){
-      if ($("#inst_estr").attr("checked")){
-         $("#form_estr").css("display", "block");
-      }else{
-         $("#form_estr").css("display", "none");
-      }
-   });
-});
-</script>
 		
 		
 		<script src="${pageContext.request.contextPath}/static/js/app.min.js"></script>

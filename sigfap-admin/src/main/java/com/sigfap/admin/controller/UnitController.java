@@ -76,6 +76,6 @@ public class UnitController{
 			telephone.setUnidadeT(unit);
 			dao4.persist(telephone);
 		}catch(Exception e){}
-		result.redirectTo(UserController.class).index();
+		result.redirectTo(IndexController.class).index();
 	}
 }

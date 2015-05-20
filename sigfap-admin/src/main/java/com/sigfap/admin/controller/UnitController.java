@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
@@ -64,6 +65,7 @@ public class UnitController{
 	}
 	
 	@Post
+	@Get
 	@Path("/inserir-unidade1")
 	public void inserir(int result_in, Unit unit, Telephone telephone, Address address){
 		unit.setInstituicao(dao.findById(result_in));

@@ -30,16 +30,16 @@ public class Institution implements Serializable{
 	private String sigla;
 	
 	@Column(name = "instituicao_ies")
-	private boolean ies;
+	private Boolean ies;
 	
 	@Column(name = "instituicao_dependencia_adm")
 	private Integer dependenciaAdm;
 	
 	@Column(name = "instituicao_fins_lucrativos")
-	private boolean finsLucrativos;
+	private Boolean finsLucrativos;
 	
 	@Column(name = "instituicao_ativa")
-	private boolean ativa;
+	private Boolean ativa;
 	
 	public Institution(){
 		
@@ -76,7 +76,7 @@ public class Institution implements Serializable{
 		return ies;
 	}
 
-	public void setIes(boolean ies) {
+	public void setIes(Boolean ies) {
 		this.ies = ies;
 	}
 

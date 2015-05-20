@@ -44,6 +44,9 @@
 			<li>
 				<a href="${pageContext.request.contextPath}/inserir-unidade" title="Inserir Unidade"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Inserir Unidade</span></a>
 			</li>
+			<li>
+				<a href="${pageContext.request.contextPath}/buscar-instituicao" title="Buscar Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Buscar Instituição</span></a>
+			</li>
 		</ul>
 	</nav>
 	<span class="minifyme" data-action="minifyMenu"> 

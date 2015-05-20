@@ -122,12 +122,9 @@
 								<fieldset>
 									<section>
 										<label class="label">Institui&ccedil;&atilde;o</label>
-  										<select name="result_in">
+  										<select name="result_in" id="teste">
   											<c:forEach var="instituicao" items="${instituicoes}">
-  												<option value=
-  												<c:out  value="${instituicao.id}"/>
-  												>
-												<c:out value="${instituicao.nome}"/>	
+  												<option value=<c:out  value="${instituicao.id}"/>><c:out value="${instituicao.nome}"/>	
 												</option>
 											</c:forEach >   
 										</select>

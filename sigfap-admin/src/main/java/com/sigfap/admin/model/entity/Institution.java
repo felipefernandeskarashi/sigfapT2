@@ -36,10 +36,10 @@ public class Institution implements Serializable{
 	private Integer dependenciaAdm;
 	
 	@Column(name = "instituicao_fins_lucrativos")
-	private boolean finsLucrativos;
+	private Boolean finsLucrativos;
 	
 	@Column(name = "instituicao_ativa")
-	private boolean ativa;
+	private Boolean ativa;
 	
 	public Institution(){
 		
@@ -113,5 +113,45 @@ public class Institution implements Serializable{
 		unidade.setInstituicao(this);
 	}
 	
+	public String getIesText(){
+		if(this.getIes()){
+			return "Sim";
+		}
+		return "Não";
+	}
+	
+	public String getFinsLucrativosText(){
+		if(this.getFinsLucrativos()){
+			return "Sim";
+		}
+		return "Não";
+	}
+	
+	public String getAtivaText(){
+		if(this.getAtiva()){
+			return "Sim";
+		}
+		return "Não";
+	}
+	
+	public String getDependenciaAdmText(){
+		switch (this.getDependenciaAdm()) {
+		case 1:
+			return "Pública Municipal";
+		case 2:
+			return "Pública Estadual";
+		case 3:
+			return "Pública Federal";
+		case 4:
+			return "Privada";
+		case 5:
+			return "ONG Nacional";
+		case 6:
+			return "ONG Internacional";
+		default:
+			return "";
+		}
+
+	}
 	
 }

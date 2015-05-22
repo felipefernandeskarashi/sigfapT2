@@ -145,6 +145,24 @@
 											<option value="6">ONG Internacional</option>
 										</select>
 									</section>
+									
+									<section>
+										<label class="label">Tipo de Ordenação</label>
+										<select name="tipoOrdenacao">
+											<option value="1">Nome</option>
+											<option value="2">Sigla</option>
+										</select>
+									</section>
+										<label class="label">Situação</label>
+										<select name="situacao">
+											<option>Selecione...</option>
+											<option value="1">Ativa</option>
+											<option value="2">Inativa</option>
+											<option value="3">Ambas</option>
+										</select>
+									<section>
+										
+									</section>
 																		
 							    </fieldset>
 								<footer>

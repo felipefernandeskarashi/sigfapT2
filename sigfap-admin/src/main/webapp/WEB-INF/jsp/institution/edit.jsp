@@ -113,7 +113,7 @@
 
 							<form action="${pageContext.request.contextPath}/institution/edit" method="post" id="smart-form-register" class="smart-form client-form">
 								<header>
-									Registration is FREE*
+									Editar Instituição
 								</header>
 
 								<fieldset>

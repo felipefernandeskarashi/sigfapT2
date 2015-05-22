@@ -1,14 +1,11 @@
 package com.sigfap.admin.controller;
 
-import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Example;
-import org.hibernate.criterion.Restrictions;
-
-import antlr.collections.List;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -47,7 +44,15 @@ public class InstitutionController{
 	
 	@Post
 	@Path("/registrar-instituicao1")
-	public void registrar(Institution institution){
+	public void registrar(Institution institution, boolean ies, boolean finsLucrativos){
+		institution.setFinsLucrativos(false);
+		institution.setIes(false);
+		if(ies){
+			institution.setIes(true);
+		}
+		if(finsLucrativos){
+			institution.setFinsLucrativos(true);
+		}
 		try{
 			institution.setAtiva(true);
 			dao.persist(institution);
@@ -66,8 +71,29 @@ public class InstitutionController{
 	
 	@Post
 	@Path("/exibir-instituicoes")
-	public void exibir(Institution institution, Integer tipoOrdenacao, Integer situacao, Integer limitePorPagina){
-		result.include("busca", dao.findByExample(institution));
+	public void exibir(Institution institution, String tipoOrdenacao, String situacao, String limitePorPagina){
+		if(situacao.equals("1")) institution.setAtiva(true);
+		if(situacao.equals("2")) institution.setAtiva(false);
+		List<Institution> instituicoes = dao.findByExample(institution);
+		if(tipoOrdenacao.equals("1")){
+			Collections.sort(instituicoes, new Comparator<Institution>() { //ordena pelo nome, todas as instituicoes cadastradas
+
+				@Override
+				public int compare(Institution o1, Institution o2) {
+					return o1.getNome().toUpperCase().compareTo(o2.getNome().toUpperCase());
+				}
+			});
+		}
+		if(tipoOrdenacao.equals("2")){
+			Collections.sort(instituicoes, new Comparator<Institution>() { //ordena pela sigla, todas as instituicoes cadastradas
+
+				@Override
+				public int compare(Institution o1, Institution o2) {
+					return o1.getSigla().toUpperCase().compareTo(o2.getSigla().toUpperCase());
+				}
+			});
+		}
+		result.include("busca", instituicoes);
 	}
 	
 	@Get
@@ -81,7 +107,9 @@ public class InstitutionController{
 	@Path("/institution/delete/{id}")
 	public void delete (int id)
 	{
-		dao.delete(dao.findById(id));
+		Institution delete = dao.findById(id);
+		delete.setAtiva(false);
+		dao.update(delete);
 		result.redirectTo(this).buscar();
 	}
 	
@@ -98,6 +126,6 @@ public class InstitutionController{
 		}catch(Exception e){
 			System.out.println("Erro Edição"+e.getMessage());
 		}
-		result.redirectTo(IndexController.class).index();
+		result.redirectTo(this).buscar();
 	}
 }

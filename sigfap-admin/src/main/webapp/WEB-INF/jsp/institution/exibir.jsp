@@ -94,6 +94,10 @@
 								                    <th data-class="expand">Nome</th>
 								                    
 								                    <th>Sigla</th>
+								                    <th>Ies</th>
+								                    <th>Dependência Adm</th>
+								                    <th>Fins Lucrativos</th>
+								                    <th>Ativa</th>
 								                    <th>#</th>
 								                    
 									            </tr>
@@ -105,7 +109,10 @@
 									                
 									                <td>${busca.nome}</td>
 									                <td>${busca.sigla}</td>
-									                
+									                <td>${busca.iesText}</td>
+									                <td>${busca.dependenciaAdmText}</td>
+									                <td>${busca.finsLucrativosText}</td>
+									                <td>${busca.ativaText}</td>
 									                <td>
 									                		<a href="${linkTo[InstitutionController].edit}${busca.id}" class="btn btn-primary btn-circle btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
 									                		<a href="${linkTo[InstitutionController].delete}${busca.id}" class="btn btn-primary btn-circle btn-danger"><i class="glyphicon glyphicon-remove"></i></a>

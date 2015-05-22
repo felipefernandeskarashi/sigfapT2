@@ -113,7 +113,7 @@
 
 							<form action="${pageContext.request.contextPath}/registrar-instituicao1" method="post" id="smart-form-register" class="smart-form client-form">
 								<header>
-									Registration is FREE*
+									Registrar Instituição
 								</header>
 
 								<fieldset>
@@ -155,12 +155,12 @@
 									
 									<section>
 										<label class="label"> IES </label>
-										<input type="checkbox" name="institution.ies"/> 
+										<input type="checkbox" name="ies"/> 
 									</section>
 									
 									<section>
 										<label class="label">Fins Lucrativos</label>
-										<input type="checkbox" name="institution.finsLucrativos"/>
+										<input type="checkbox" name="finsLucrativos"/>
 									</section>
 									
 									<section>

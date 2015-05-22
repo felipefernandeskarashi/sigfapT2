@@ -111,32 +111,39 @@
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 						<div class="well no-padding">
 
-							<form action="${pageContext.request.contextPath}/exibir-instituicoes" method="post" id="smart-form-register" class="smart-form client-form">
+							<form action="${pageContext.request.contextPath}/institution/edit" method="post" id="smart-form-register" class="smart-form client-form">
 								<header>
 									Registration is FREE*
 								</header>
 
 								<fieldset>
+									<section>
+										<label class="label">Institui&ccedil;&atilde;o Estrangeira?</label>
+  											<input type="checkbox" value="1" name="inst_estr" id="inst_estr" onClick="Hab();Des();"/>
+									</section>
 									
 									<section>
 										<label class="label">Nome</label>
-										<input type="text" name="institution.nome" size="50">
+										<input type="text" name="edit.nome" value="${edit.nome}" size="50" required="required">
 									</section>
 									
 									<section>
 										<label class="label">Sigla</label>
-										<input type="text" name="institution.sigla" size="50">
+										<input type="text" name="edit.sigla" value="${edit.sigla}" size="50" required="required">
 									</section>
 									
 									<section>
 										<label class="label">CNPJ</label>
-										<input type="text" name="" id="cnpj" size="50">
+										<input type="text" name="" id="cnpj" size="50" required="required">
+									</section>
+									<section>
+										<label class="label">Pa&iacute;s da Institui&ccedil;&atilde;o</label>
+										<input type="text" name="" id="pais" size="50" required="required">
 									</section>
 									
 									<section>
 										<label class="label">Tipo de Depend&ecirc;ncia Administrativa</label>
-										<select name="institution.dependenciaAdm">
-											<option value ="">Selecione...</option>
+										<select name="edit.dependenciaAdm">
 											<option value="1">P&uacute;blica Municipal</option>
 											<option value="2">P&uacute;blica Estadual</option>
 											<option value="3">P&uacute;blica Federal</option>
@@ -145,11 +152,30 @@
 											<option value="6">ONG Internacional</option>
 										</select>
 									</section>
-																		
+									
+									<section>
+										<label class="label"> IES </label>
+										<input type="checkbox" name="edit.ies"/> 
+									</section>
+									
+									<section>
+										<label class="label">Fins Lucrativos</label>
+										<input type="checkbox" name="edit.finsLucrativos"/>
+									</section>
+									
+									<section>
+										<label class="label">Recebe Propostas de Mestrado/Doutorado</label>
+										<select name="">
+											<option value="1">Sim</option>
+											<option value="2">N&atilde;o</option>
+										</select>
+									</section>
+									 <input type="text" name="idInst" value="${edit.id}"style="display:none"> 
+									
 							    </fieldset>
 								<footer>
 									<button type="submit" class="btn btn-primary">
-										Buscar
+										Register
 									</button>
 								</footer>
 

@@ -116,11 +116,20 @@ public class InstitutionController{
 	@Post
 	@Get
 	@Path("/institution/edit")
-	public void editInst(Institution edit, int idInst){
+	public void editInst(Institution edit, int idInst, boolean ies, boolean finsLucrativos){
 		edit.setId(idInst);
-		
+		edit.setFinsLucrativos(false);
+		edit.setIes(false);
+		if(ies){
+			edit.setIes(true);
+		}
+		if(finsLucrativos){
+			edit.setFinsLucrativos(true);
+		}
 		try{
-			edit.setAtiva(true);
+			if(edit.getAtiva() != true){
+				edit.setAtiva(false);
+			}
 			dao.update(edit);
 			
 		}catch(Exception e){

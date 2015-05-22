@@ -155,12 +155,12 @@
 									
 									<section>
 										<label class="label"> IES </label>
-										<input type="checkbox" name="edit.ies" id="ies"/> 
+										<input type="checkbox" name="ies" id="ies"/> 
 									</section>
 									
 									<section>
 										<label class="label">Fins Lucrativos</label>
-										<input type="checkbox" name="edit.finsLucrativos" id="finsLuc"/>
+										<input type="checkbox" name="finsLucrativos" id="finsLuc"/>
 									</section>
 									
 									<section>

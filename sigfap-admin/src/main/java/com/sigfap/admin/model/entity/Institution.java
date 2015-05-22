@@ -36,10 +36,10 @@ public class Institution implements Serializable{
 	private Integer dependenciaAdm;
 	
 	@Column(name = "instituicao_fins_lucrativos")
-	private Boolean finsLucrativos;
+	private boolean finsLucrativos;
 	
 	@Column(name = "instituicao_ativa")
-	private Boolean ativa;
+	private boolean ativa;
 	
 	public Institution(){
 		
@@ -92,7 +92,7 @@ public class Institution implements Serializable{
 		return finsLucrativos;
 	}
 
-	public void setFinsLucrativos(boolean finsLucrativos) {
+	public void setFinsLucrativos(Boolean finsLucrativos) {
 		this.finsLucrativos = finsLucrativos;
 	}
 
@@ -100,7 +100,7 @@ public class Institution implements Serializable{
 		return ativa;
 	}
 
-	public void setAtiva(boolean ativa) {
+	public void setAtiva(Boolean ativa) {
 		this.ativa = ativa;
 	}
 	

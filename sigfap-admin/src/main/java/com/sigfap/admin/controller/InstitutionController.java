@@ -89,7 +89,7 @@ public class InstitutionController{
 
 				@Override
 				public int compare(Institution o1, Institution o2) {
-					return o1.getSigla().toUpperCase().compareTo(o2.getSigla().toUpperCase());
+					return o1.getDependenciaAdmText().toUpperCase().compareTo(o2.getDependenciaAdmText().toUpperCase());
 				}
 			});
 		}

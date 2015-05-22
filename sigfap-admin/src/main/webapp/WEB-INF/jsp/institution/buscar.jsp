@@ -150,7 +150,7 @@
 										<label class="label">Tipo de Ordenação</label>
 										<select name="tipoOrdenacao">
 											<option value="1">Nome</option>
-											<option value="2">Sigla</option>
+											<option value="2">Dependência Administrativa</option>
 										</select>
 									</section>
 										<label class="label">Situação</label>

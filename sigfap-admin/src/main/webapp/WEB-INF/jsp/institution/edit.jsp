@@ -55,7 +55,7 @@
 		
 
 	</head>
-	<body id="login" onLoad="setDisabled()">
+	<body id="login" onLoad="setDisabled();setCampos();">
 		<!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
 		<header id="header">
 			<!--<span id="logo"></span>-->
@@ -143,7 +143,7 @@
 									
 									<section>
 										<label class="label">Tipo de Depend&ecirc;ncia Administrativa</label>
-										<select name="edit.dependenciaAdm">
+										<select name="edit.dependenciaAdm" id="depAdm">
 											<option value="1">P&uacute;blica Municipal</option>
 											<option value="2">P&uacute;blica Estadual</option>
 											<option value="3">P&uacute;blica Federal</option>
@@ -155,12 +155,12 @@
 									
 									<section>
 										<label class="label"> IES </label>
-										<input type="checkbox" name="edit.ies"/> 
+										<input type="checkbox" name="edit.ies" id="ies"/> 
 									</section>
 									
 									<section>
 										<label class="label">Fins Lucrativos</label>
-										<input type="checkbox" name="edit.finsLucrativos"/>
+										<input type="checkbox" name="edit.finsLucrativos" id="finsLuc"/>
 									</section>
 									
 									<section>
@@ -575,6 +575,40 @@ Contractology supply a wide variety of commercial legal documents, such as <a hr
 			function setDisabled() {
 				document.getElementById("pais").disabled=true;
 			}
+			
+			function setCampos() {
+				switch("${edit.dependenciaAdm}"){
+				case "1":
+					document.getElementById("depAdm").options[0].selected = true;
+					break;
+				case "2":
+					document.getElementById("depAdm").options[1].selected = true;
+					break;
+				case "3":
+					document.getElementById("depAdm").options[2].selected = true;
+					break;
+				case "4": 
+					document.getElementById("depAdm").options[3].selected = true;
+					break;
+				case "5":
+					document.getElementById("depAdm").options[4].selected = true;
+					break;
+				case "6":
+					document.getElementById("depAdm").options[5].selected = true;
+					break;
+				default:
+					break;
+				}
+				
+				if("${edit.ies}" == "true"){
+					document.getElementById("ies").checked = true;
+				}
+				
+				if("${edit.finsLucrativos}" == "true"){
+					document.getElementById("finsLuc").checked = true;
+				}
+			}
+				
 		</script>
 
 	</body>

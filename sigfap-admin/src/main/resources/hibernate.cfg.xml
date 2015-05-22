@@ -20,6 +20,19 @@
         <property name="hibernate.current_session_context_class">thread</property>
         
         <mapping class="com.sigfap.admin.model.entity.User"/>
+        <mapping class="com.sigfap.admin.model.entity.Address"/>
+        <mapping class="com.sigfap.admin.model.entity.City"/>
+        <mapping class="com.sigfap.admin.model.entity.Country"/>
+        <mapping class="com.sigfap.admin.model.entity.Institution"/>
+        <mapping class="com.sigfap.admin.model.entity.Representative"/>
+        <mapping class="com.sigfap.admin.model.entity.Research"/>
+        <mapping class="com.sigfap.admin.model.entity.Sector"/>
+        <mapping class="com.sigfap.admin.model.entity.Skill"/>
+        <mapping class="com.sigfap.admin.model.entity.State"/>
+        <mapping class="com.sigfap.admin.model.entity.Telephone"/>
+        <mapping class="com.sigfap.admin.model.entity.Unit"/>
+        <mapping class="com.sigfap.admin.model.entity.Ethnicity"/>
+        
         
     </session-factory>
 </hibernate-configuration>

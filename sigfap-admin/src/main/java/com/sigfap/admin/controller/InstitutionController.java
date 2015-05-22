@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 import antlr.collections.List;
 import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
@@ -54,7 +55,7 @@ public class InstitutionController{
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		result.redirectTo(this).index();
+		result.redirectTo(IndexController.class).index();
 	}
 	
 	
@@ -67,5 +68,36 @@ public class InstitutionController{
 	@Path("/exibir-instituicoes")
 	public void exibir(Institution institution, Integer tipoOrdenacao, Integer situacao, Integer limitePorPagina){
 		result.include("busca", dao.findByExample(institution));
+	}
+	
+	@Get
+	@Path("/institution/edit/{id}")
+	public void edit (int id)
+	{
+		result.include("edit", dao.findById(id));
+	}
+	
+	@Get
+	@Path("/institution/delete/{id}")
+	public void delete (int id)
+	{
+		dao.delete(dao.findById(id));
+		result.redirectTo(this).buscar();
+	}
+	
+	@Post
+	@Get
+	@Path("/institution/edit")
+	public void editInst(Institution edit, int idInst){
+		edit.setId(idInst);
+		
+		try{
+			edit.setAtiva(true);
+			dao.update(edit);
+			
+		}catch(Exception e){
+			System.out.println("Erro Edição"+e.getMessage());
+		}
+		result.redirectTo(IndexController.class).index();
 	}
 }

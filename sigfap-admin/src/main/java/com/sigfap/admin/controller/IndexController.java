@@ -2,6 +2,8 @@ package com.sigfap.admin.controller;
 
 import javax.inject.Inject;
 
+import com.sigfap.admin.security.intercept.annotation.Public;
+
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Result;
@@ -23,7 +25,7 @@ public class IndexController {
 		this.result = result;
 	}
 
-	
+	@Public
 	@Path("/")
 	public void index() {
 		

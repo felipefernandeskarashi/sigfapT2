@@ -170,7 +170,8 @@
 											<option value="2">N&atilde;o</option>
 										</select>
 									</section>
-									 <input type="text" name="idInst" value="${edit.id}"style="display:none"> 
+									 <input type="text" name="edit.id" value="${edit.id}"style="display:none">
+									 <input type="text" name="edit.ativa" value="${edit.ativa}"style="display:none"> 
 									
 							    </fieldset>
 								<footer>
@@ -608,6 +609,8 @@ Contractology supply a wide variety of commercial legal documents, such as <a hr
 					document.getElementById("finsLuc").checked = true;
 				}
 			}
+			
+			
 				
 		</script>
 

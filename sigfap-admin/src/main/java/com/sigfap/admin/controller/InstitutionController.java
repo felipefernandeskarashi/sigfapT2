@@ -11,6 +11,8 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.Severity;
+import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 
 import com.sigfap.admin.model.dao.InstitutionDAO;
@@ -116,8 +118,7 @@ public class InstitutionController{
 	@Post
 	@Get
 	@Path("/institution/edit")
-	public void editInst(Institution edit, int idInst, boolean ies, boolean finsLucrativos){
-		edit.setId(idInst);
+	public void editInst(Institution edit, boolean ies, boolean finsLucrativos){
 		edit.setFinsLucrativos(false);
 		edit.setIes(false);
 		if(ies){
@@ -127,13 +128,11 @@ public class InstitutionController{
 			edit.setFinsLucrativos(true);
 		}
 		try{
-			if(edit.getAtiva() != true){
-				edit.setAtiva(false);
-			}
-			dao.update(edit);
 			
+			dao.update(edit);
 		}catch(Exception e){
 			System.out.println("Erro Edição"+e.getMessage());
+			validator.add(new SimpleMessage("error", "", Severity.ERROR));
 		}
 		result.redirectTo(this).buscar();
 	}

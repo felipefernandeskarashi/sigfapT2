@@ -155,10 +155,10 @@
 									</section>
 										<label class="label">Situação</label>
 										<select name="situacao">
-											<option>Selecione...</option>
+											<option value="3">Ambas</option>
 											<option value="1">Ativa</option>
 											<option value="2">Inativa</option>
-											<option value="3">Ambas</option>
+											
 										</select>
 									<section>
 										

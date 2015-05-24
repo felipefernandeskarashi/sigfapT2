@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.hibernate.criterion.Restrictions;
+
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -17,6 +19,7 @@ import br.com.caelum.vraptor.validator.Validator;
 
 import com.sigfap.admin.model.dao.InstitutionDAO;
 import com.sigfap.admin.model.entity.Institution;
+import com.sigfap.admin.model.entity.Unit;
 
 @Controller
 public class InstitutionController{
@@ -116,7 +119,6 @@ public class InstitutionController{
 	}
 	
 	@Post
-	@Get
 	@Path("/institution/edit")
 	public void editInst(Institution edit, boolean ies, boolean finsLucrativos){
 		edit.setFinsLucrativos(false);
@@ -135,5 +137,50 @@ public class InstitutionController{
 			validator.add(new SimpleMessage("error", "", Severity.ERROR));
 		}
 		result.redirectTo(this).buscar();
+	}
+	
+	@Path("/registrar-instituicao-sugerida")
+	public void registrarS(){
+		
+	}
+	
+	@Path("/vincular-instituicao")
+	public void vincular(){
+		result.include("instituicoes", dao.findByCriteria(
+				Restrictions.sqlRestriction("instituicao_dependencia_adm <> 7")));
+		result.include("instituicoesS", dao.findByCriteria(
+				Restrictions.sqlRestriction("instituicao_dependencia_adm = 7")));
+	}
+	
+	@Path("/vincular-instituicao1")
+	@Post
+	public void vincular1(int inst, int instS){
+		Institution instituicao = dao.findById(inst);
+		Institution instituicaoS = dao.findById(instS);
+		if(instituicaoS.getUnidades().isEmpty()){
+			try{
+				dao.delete(instituicaoS);
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+				validator.add(new SimpleMessage("error", "Erro no banco de dados", Severity.ERROR));
+			}
+			result.redirectTo(IndexController.class).index();
+		}
+		else{
+			List<Unit> unidades = dao.findById(instS).getUnidades();
+			for(Unit u : unidades){
+				instituicao.addUnidade(u);
+				
+			}
+			try{
+				dao.delete(instituicaoS);
+				dao.update(instituicao);
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+				validator.add(new SimpleMessage("error", "Erro no banco de dados", Severity.ERROR));
+			}
+			result.redirectTo(IndexController.class).index();
+
+		}
 	}
 }

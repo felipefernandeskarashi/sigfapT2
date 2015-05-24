@@ -149,7 +149,7 @@ public class Institution implements Serializable{
 		case 6:
 			return "ONG Internacional";
 		default:
-			return "";
+			return "Sugerida";
 		}
 
 	}

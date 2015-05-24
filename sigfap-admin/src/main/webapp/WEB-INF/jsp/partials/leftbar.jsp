@@ -47,6 +47,14 @@
 			<li>
 				<a href="${pageContext.request.contextPath}/buscar-instituicao" title="Buscar Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Buscar Instituição</span></a>
 			</li>
+			
+			<li>
+				<a href="${pageContext.request.contextPath}/registrar-instituicao-sugerida" title="Sugerir Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Sugerir Instituição</span></a>
+			</li>
+			
+			<li>
+				<a href="${pageContext.request.contextPath}/vincular-instituicao" title="Vincular Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Vincular Instituição</span></a>
+			</li>
 		</ul>
 	</nav>
 	<span class="minifyme" data-action="minifyMenu"> 

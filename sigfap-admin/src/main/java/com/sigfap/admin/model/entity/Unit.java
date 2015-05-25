@@ -37,10 +37,10 @@ public class Unit implements Serializable{
 	private String publicar;
 	
 	@Column(name = "unidade_ativa")
-	private boolean ativa;
+	private Boolean ativa;
 	
 	@Column(name = "unidade_principal")
-	private boolean principal;
+	private Boolean principal;
 	
 	@Column(name = "unidade_fape_uso")
 	private Integer fapeUso;

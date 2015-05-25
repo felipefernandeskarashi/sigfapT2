@@ -55,6 +55,10 @@
 			<li>
 				<a href="${pageContext.request.contextPath}/vincular-instituicao" title="Vincular Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Vincular Instituição</span></a>
 			</li>
+			
+			<li>
+				<a href="${pageContext.request.contextPath}/unit/buscar" title="Gerencia Unidade"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Gerenciar Unidade</span></a>
+			</li>
 		</ul>
 	</nav>
 	<span class="minifyme" data-action="minifyMenu"> 

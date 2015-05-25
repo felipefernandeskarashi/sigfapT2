@@ -182,6 +182,8 @@
 											<option value="0">Inativa</option>
 										</select>
 									</section>
+									
+									
 													
 							    </fieldset>
 								<footer>

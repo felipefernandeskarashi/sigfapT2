@@ -156,5 +156,7 @@ public class Address implements Serializable{
 	public List<Research> getPesquisadoresRes() {
 		return pesquisadoresRes;
 	}
+	
+	
 
 }

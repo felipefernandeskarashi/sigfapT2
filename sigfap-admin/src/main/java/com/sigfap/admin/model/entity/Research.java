@@ -509,6 +509,13 @@ public class Research implements Serializable{
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+	
+	public String getAtivoTexto(){
+		if(this.isAtivo()){
+			return "Ativo";
+		}
+		return "Inativo";
+	}
 
 	public Integer getArea2() {
 		return area2;

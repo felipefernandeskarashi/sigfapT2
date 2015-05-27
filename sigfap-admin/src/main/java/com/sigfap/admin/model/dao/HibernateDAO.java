@@ -9,23 +9,16 @@ import javax.inject.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.LockOptions;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
-import org.hibernate.service.ServiceRegistry;
-import org.slf4j.Logger;
 
 public class HibernateDAO<E, PK extends Serializable> implements
 		IGenericDAO<E, PK> {
 
 	private Class<E> persistentClass;
-
-	@Inject
-	private Logger log;
 
 	@Inject
 	@Corporate
@@ -78,7 +71,7 @@ public class HibernateDAO<E, PK extends Serializable> implements
 	@Override
 	public List<E> findByExample(E exampleInstance) {
 		Criteria crit = getSession().createCriteria(getEntityClass());
-		crit.add(Example.create(exampleInstance));
+		crit.add(Example.create(exampleInstance).ignoreCase().enableLike(MatchMode.ANYWHERE));
 		return crit.list();
 	}
 
@@ -105,7 +98,7 @@ public class HibernateDAO<E, PK extends Serializable> implements
 		crit.setProjection(Projections.rowCount());
 		crit.add(Example.create(exampleInstance));
 
-		return (Integer) crit.list().get(0);
+		return  Integer.valueOf(crit.list().get(0).toString());
 	}
 
 	@Override

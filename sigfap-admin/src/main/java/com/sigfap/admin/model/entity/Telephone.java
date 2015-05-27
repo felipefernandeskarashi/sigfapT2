@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,6 +34,14 @@ public class Telephone implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pesquisador_id", insertable = true, updatable = true, foreignKey = @ForeignKey(name="telefone_pesquisador_id_fkey"))
 	private Research pesquisador;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "unidade_id")
+	private Unit unidadeT;
+	
+	@OneToOne
+	@JoinColumn(name = "representante_id")
+	private Representative representante;
 	
 	public Telephone() {
 		
@@ -60,6 +69,25 @@ public class Telephone implements Serializable {
 	
 	public void setPesquisador(Research pesquisador) {
 		this.pesquisador = pesquisador;
+	}
+	
+	public Unit getUnidadeT() {
+		return unidadeT;
+	}
+	
+	public void setUnidadeT(Unit unidadeT) {
+		this.unidadeT = unidadeT;
+	}
+	
+	
+	
+	
+	public Representative getRepresentante() {
+		return representante;
+	}
+
+	public void setRepresentante(Representative representante) {
+		this.representante = representante;
 	}
 
 	@Override

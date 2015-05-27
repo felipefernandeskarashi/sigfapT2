@@ -2,7 +2,7 @@
 <html lang="en-us" id="extr-page">
 <head>
 <meta charset="utf-8">
-<title>sigfap</title>
+<title>sigfap | Cadastro de Pesquisador</title>
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport"
@@ -76,6 +76,25 @@
 
 <body class="animated fadeInDown">
 
+	<!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
+	<header id="header">
+		<!--<span id="logo">
+		<img
+				src="${pageContext.request.contextPath}/static/img/demo/sigfap.jpg"
+				alt="sigfap"></span>-->
+		<div id="logo-group">
+			<span id="logo"> <img
+				src="${pageContext.request.contextPath}/static/img/demo/sigfap.jpg"
+				alt="sigfap">
+			</span>
+			<!-- END AJAX-DROPDOWN -->
+		</div>
+		<span id="extr-page-header-space"> <span class="hidden-mobile"></span>
+			<a href="${pageContext.request.contextPath}/auth"
+			class="btn btn-success">Voltar</a>
+		</span>
+	</header>
+
 	<div id="main" role="main">
 
 		<!-- MAIN CONTENT -->
@@ -89,13 +108,15 @@
 
 						<fieldset>
 							<section>
-								<label class="input">Pesquisador Estrangeiro</label> <input type="checkbox"
-										value="1" name="pesq_estr" id="pesq_estr" onClick="Hab();Des();"/> 
+								<label class="input">Pesquisador Estrangeiro</label> <input
+									type="checkbox" value="1" name="pesq_estr" id="pesq_estr"
+									onClick="Hab();Des();" />
 							</section>
 							<section>
-								<label class="label">Nome do Pesquisador</label> <label
-									class="input"> <i class="icon-append fa fa-user"></i> <input
-									type="text" name="research.nome" required="required"> <b
+								<label class="label">Nome do Pesquisador<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-user"></i> <input type="text"
+									name="research.nome" required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-user txt-color-teal"></i> Por favor informe o seu
 										nome completo</b>
@@ -103,47 +124,53 @@
 							</section>
 
 							<section>
-								<label class="label">CPF</label> <label class="input"> <i
-									class="icon-append fa fa-lock"> </i><input type="text"
-									name="research.cpf" id="cpf"  placeholder="Ex.: 000.000.000-00" required="required"/> <b
+								<label class="label">CPF<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock">
+								</i><input type="text" name="research.cpf" id="cpf"
+									placeholder="Ex.: 000.000.000-00" required="required" /> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o seu CPF</b>
 								</label>
 							</section>
 
 							<section>
-								<label class="label">RG</label> <label class="input"> <i
-									class="icon-append fa fa-lock"></i><input type="text"
-									name="research.rg" id="rg" required="required" placeholder="Ex.: 00.000.000-0"> <b
+								<label class="label">RG<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i><input
+									type="text" name="research.rg" id="rg" required="required"
+									placeholder="Ex.: 00.000.000-0"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o seu RG</b>
 								</label>
 							</section>
 
 							<section>
-								<label class="label">Órgão Emissor</label> <label class="input">
-									<i class="icon-append fa fa-lock"></i> <input type="text"
-									name="research.rgEmissor" id="orgaoEm" required="required"> <b
-									class="tooltip tooltip-top-right"><i
+								<label class="label">Órgão Emissor<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="research.rgEmissor" id="orgaoEm" required="required">
+									<b class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o seu Órgão
 										Emissor</b>
 								</label>
 							</section>
 
 							<section>
-								<label class="label">Data de Emissão</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="date" name="research.rgDataEmissor" id="dataEm" required="required"> <b
-									class="tooltip tooltip-top-right"><i
+								<label class="label">Data de Emissão<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="date"
+									name="research.rgDataEmissor" id="dataEm" required="required">
+									<b class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe a Data de
 										Emissão</b>
 								</label>
 							</section>
 
 							<section>
-								<label class="label">Estado de Emissão</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="research.rgEstadoEmissor" id="estadoEm" required="required"> <b
+								<label class="label">Estado de Emissão<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="research.rgEstadoEmissor" id="estadoEm"
+									required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o seu Estado de
 										Emissão</b>
@@ -151,9 +178,10 @@
 							</section>
 
 							<section>
-								<label class="label">Data de Nascimento</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="date" name="research.nascimento" required="required"> <b
+								<label class="label">Data de Nascimento<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="date"
+									name="research.nascimento" required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe a sua Data de
 										Nascimento</b>
@@ -161,147 +189,170 @@
 							</section>
 
 							<section>
- 									<label class="label">Sexo</label> 
- 									<select name="research.sexo">
-									<option value="Masculino">Masculino</option>
-									<option value="Feminino">Feminino</option>
-									</select>
-							</section>
-									
-							<section>
-								<label class="label">Etnia</label> 
-								<select name=etniaId>
-									<option value="17">Parda</option>
-									<option value="14">Branca</option>
-									<option value="16">Negra</option>
-									<option value="15">Indígena</option>
-									<option value="13">Amarela</option>
-									
+								<label class="label">Sexo</label> <label>
+									<select name="research.sexo">
+										<option value="Masculino">Masculino</option>
+										<option value="Feminino">Feminino</option>
 								</select>
+								</label>
 							</section>
 
 							<section>
-								<label class="label">Nome da Mãe</label> <label class="input">
-									<i class="icon-append fa fa-lock"></i> <input type="text"
-									name="research.mae" required="required"> <b
-									class="tooltip tooltip-top-right"><i
+								<label class="label">Etnia</label> <label>
+									<select name=etniaId>
+										<option value="17">Parda</option>
+										<option value="14">Branca</option>
+										<option value="16">Negra</option>
+										<option value="15">Indígena</option>
+										<option value="13">Amarela</option>
+								</select>
+								</label>
+							</section>
+
+							<section>
+								<label class="label">Nome da Mãe<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="text" name="research.mae" required="required">
+									<b class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o nome de sua
 										Mãe</b>
 								</label>
 							</section>
 
 							<section>
-								<label class="label">Nome do Pai</label> <label class="input">
-									<i class="icon-append fa fa-lock"></i> <input type="text"
-									name="research.pai" required="required"> <b
-									class="tooltip tooltip-top-right"><i
+								<label class="label">Nome do Pai<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="text" name="research.pai" required="required">
+									<b class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o nome de seu
 										Pai</b>
 								</label>
 							</section>
 
 							<section>
-								<h2>Endereço Residêncial</h2>
-								<label class="label">Rua</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address.rua" required="required"> <b
-									class="tooltip tooltip-top-right"><i
+								<h2>Endereço Residencial</h2>
+								<label class="label">Rua<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="text" name="address.rua" required="required">
+									<b class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe a rua</b>
-								</label> <br>
-								<label class="label">Número</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address.numero" required="required"> <b
+								</label> <br /> <label class="label">Número<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="address.numero" required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o número</b>
-								</label> <br>
-								<label class="label">Complemento</label> <label
+								</label> <br /> <label class="label">Complemento</label> <label
 									class="input"> <i class="icon-append fa fa-lock"></i> <input
 									type="text" name="address.complemento"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o complemento</b>
-								</label> <br>
-								<label class="label">Bairro</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address.bairo" required="required"> <b
+								</label> <br> <label class="label">Bairro<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="address.bairo" required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o bairro</b>
-								</label> <br>
-								<label class="label">CEP</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address.cep" required="required"  placeholder="Ex.: 00000-000"> <b
+								</label> <br /> <label class="label">Cidade<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="address.cidade" required="required"> <b
+									class="tooltip tooltip-top-right"><i
+										class="fa fa-lock txt-color-teal"></i> Informe a cidade</b>
+								</label> <br /> <label class="label">Estado<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="address.estado" required="required"> <b
+									class="tooltip tooltip-top-right"><i
+										class="fa fa-lock txt-color-teal"></i> Informe o estado</b>
+								</label> <br /> <label class="label">CEP<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="text" name="address.cep" required="required"
+									placeholder="Ex.: 00000-000"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o CEP</b>
-								</label><br>
-								<label class="label">Endereço Cidade Estrangeira</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address.cidadeEstrangeira" id="cidadeEsRE" > <b
-									class="tooltip tooltip-top-right"><i
-										class="fa fa-lock txt-color-teal"></i> Informe o endereço residêncial caso não resida no Brasil</b>
+								</label><br /> <label class="label">Endereço Cidade Estrangeira</label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="text" name="address.cidadeEstrangeira"
+									id="cidadeEsRE"> <b class="tooltip tooltip-top-right"><i
+										class="fa fa-lock txt-color-teal"></i> Informe o endereço
+										residencial caso não resida no Brasil</b>
 								</label>
 							</section>
 
 							<section>
 								<h2>Endereço Comercial</h2>
-								<label class="label">Rua</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address2.rua" required="required"> <b
-									class="tooltip tooltip-top-right"><i
+								<label class="label">Rua<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="text" name="address2.rua" required="required">
+									<b class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe a rua</b>
-								</label> <br>
-								<label class="label">Número</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address2.numero" required="required"> <b
+								</label> <br /> <label class="label">Número<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="address2.numero" required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o número</b>
-								</label> <br>
-								<label class="label">Complemento</label> <label
+								</label> <br /> <label class="label">Complemento</label> <label
 									class="input"> <i class="icon-append fa fa-lock"></i> <input
 									type="text" name="address2.complemento"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o complemento</b>
-								</label> <br>
-								<label class="label">Bairro</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address2.bairro" required="required"> <b
+								</label> <br /> <label class="label">Bairro<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="address2.bairro" required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o bairro</b>
-								</label> <br>
-								<label class="label">CEP</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address2.cep" required="required"  placeholder="Ex.: 00000-000"> <b
+								</label> <br /> <label class="label">Cidade<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="address2.cidade" required="required"> <b
+									class="tooltip tooltip-top-right"><i
+										class="fa fa-lock txt-color-teal"></i> Informe a cidade</b>
+								</label> <br /> <label class="label">Estado<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="address2.estado" required="required"> <b
+									class="tooltip tooltip-top-right"><i
+										class="fa fa-lock txt-color-teal"></i> Informe o estado</b>
+								</label> <br /> <label class="label">CEP<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="text" name="address2.cep" required="required"
+									placeholder="Ex.: 00000-000"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o CEP</b>
-								</label><br>
-								<label class="label">Endereço Cidade Estrangeira</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="address2.cidadeEstrangeira" id="cidadeEsCo"> <b
-									class="tooltip tooltip-top-right"><i
-										class="fa fa-lock txt-color-teal"></i> Informe o endereço comercial caso não resida no Brasil</b>
+								</label><br /> <label class="label">Endereço Cidade Estrangeira</label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="text" name="address2.cidadeEstrangeira"
+									id="cidadeEsCo"> <b class="tooltip tooltip-top-right"><i
+										class="fa fa-lock txt-color-teal"></i> Informe o endereço
+										comercial caso não resida no Brasil</b>
 								</label>
 							</section>
-							
+
 							<section>
-								<label class="label">Endereço Preferencial</label> 
-									<select name="research.enderecoPref">
+								<label class="label">Endereço Preferencial</label> <select
+									name="research.enderecoPref">
 									<option value="1">Endereço Residencial</option>
 									<option value="0">Endereço Comercial</option>
-									</select>
+								</select>
 							</section>
-							
+
 							<section>
-								<label class="label">País</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="research.pais" required="required"> <b
-									class="tooltip tooltip-top-right"><i
+								<label class="label">País<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="text" name="research.pais" required="required">
+									<b class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o seu País</b>
 								</label>
 							</section>
 
 							<section>
-								<label class="label">Telefone</label> <label class="input">
-									<i class="icon-append fa fa-lock"></i> <input type="tel"
-									name="telephone.numero" required="required" maxlength="15"> <b
-									class="tooltip tooltip-top-right"><i
+								<label class="label">Telefone<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="tel" name="telephone.numero" required="required"
+									maxlength="15"> <b class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o seu Telefone</b>
 								</label>
 							</section>
@@ -316,29 +367,32 @@
 							</section>
 
 							<section>
-								<label class="label">Escolaridade</label> <label class="input">
-									<i class="icon-append fa fa-lock"></i> <input type="text"
+								<label class="label">Escolaridade<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
 									name="research.escolaridade" required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe a sua
-										Escolariedade</b>
+										Escolaridade</b>
 								</label>
 							</section>
 
 							<section>
-								<label class="label">Vínculo Empregatício</label> 
-									<select name="research.vinculoEmpregaticio">
+								<label class="label">Vínculo Empregatício</label> <label> <select
+									name="research.vinculoEmpregaticio">
 										<option value="1">Sim</option>
 										<option value="0">Não</option>
-									</select>
+								</select>
+								</label>
 							</section>
 
 							<section>
-								<label class="label">Vínculo Institucional</label>
-									<select name="research.vinculoInstitucional">
+								<label class="label">Vínculo Institucional</label> <label> <select
+									name="research.vinculoInstitucional">
 										<option value="1">Sim</option>
 										<option value="0">Não</option>
-									</select>
+								</select>
+								</label>
 							</section>
 
 							<section>
@@ -403,7 +457,8 @@
 									<i class="icon-append fa fa-lock"></i> <input type="text"
 									name="research.tipo"> <b
 									class="tooltip tooltip-top-right"><i
-										class="fa fa-lock txt-color-teal"></i> Informe o tipo de pesquisador que você é.</b>
+										class="fa fa-lock txt-color-teal"></i> Informe o tipo de
+										pesquisador que você é.</b>
 								</label>
 							</section>
 
@@ -427,9 +482,10 @@
 							</section>
 
 							<section>
-								<label class="label">Modalidade de Bolsa</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="research.modalidadeBolsa" required="required"> <b
+								<label class="label">Modalidade de Bolsa<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="research.modalidadeBolsa" required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe a sua
 										Modalidade de Bolsa</b>
@@ -437,9 +493,10 @@
 							</section>
 
 							<section>
-								<label class="label">Objeto de Concessão</label> <label
-									class="input"> <i class="icon-append fa fa-lock"></i> <input
-									type="text" name="research.objConcessao" required="required"> <b
+								<label class="label">Objeto de Concessão<span
+									style="color: red">*</span></label> <label class="input"> <i
+									class="icon-append fa fa-lock"></i> <input type="text"
+									name="research.objConcessao" required="required"> <b
 									class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe o seu Objeto de
 										Concessão</b>
@@ -457,55 +514,61 @@
 							</section>
 
 							<section>
-								<label class="label">Área de Conhecimento</label>
-								<select name="areaId">
-								<option value="1">Ciências Exatas e da Terra</option>
-								<option value="2">Ciências Biológicas</option>
-								<option value="3">Engenharias</option>
-								<option value="4">Ciências da saúde</option>
-								<option value="5">Ciências Agrárias</option>
-								<option value="6">Ciências Sociais Aplicadas</option>
-								<option value="7">Ciências Humanas, Linguísticas e Letras e Arte</option>
+								<label class="label">Área de Conhecimento</label> <label>
+									<select name="areaId">
+										<option value="1">Ciências Exatas e da Terra</option>
+										<option value="2">Ciências Biológicas</option>
+										<option value="3">Engenharias</option>
+										<option value="4">Ciências da saúde</option>
+										<option value="5">Ciências Agrárias</option>
+										<option value="6">Ciências Sociais Aplicadas</option>
+										<option value="7">Ciências Humanas, Linguísticas e
+											Letras e Arte</option>
 								</select>
-							</section>
-								
-							<section>
-								<label class="label">Disponibilidade para Viajar</label> 
-								<select name="research.dispoViajar">
-								<option value="1">Sim</option>
-								<option value="0">Não</option>
-								</select>
-							</section>
-								
-							<section>
-								<label class="label">Receber Informações</label>
-								<select name="research.receberInfo">
-								<option value="1">Sim</option>
-								<option value="0">Não</option>
-								</select>
-							</section>
-							
-							<section>
-								<label class="label">E-mail</label> <label class="input">
-									<i class="icon-append fa fa-lock"></i> <input type="email"
-									name="research.email" required="required"> <b
-									class="tooltip tooltip-top-right"><i
-										class="fa fa-lock txt-color-teal"></i> Informe o seu E-mail</b>
-								</label>
-							</section>
-							
-							<section>
-								<label class="label">Senha</label> <label class="input">
-									<i class="icon-append fa fa-lock"></i> <input type="password"
-									name="research.senha" required="required"> <b
-									class="tooltip tooltip-top-right"><i
-										class="fa fa-lock txt-color-teal"></i> Crie uma senha para logar no sistema</b>
 								</label>
 							</section>
 
+							<section>
+								<label class="label">Disponibilidade para Viajar</label> <select
+									name="research.dispoViajar">
+									<option value="1">Sim</option>
+									<option value="0">Não</option>
+								</select>
+							</section>
+
+							<section>
+								<label class="label">Receber Informações</label> <select
+									name="research.receberInfo">
+									<option value="1">Sim</option>
+									<option value="0">Não</option>
+								</select>
+							</section>
+
+							<section>
+								<label class="label">E-mail<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="email" name="research.email" required="required">
+									<b class="tooltip tooltip-top-right"><i
+										class="fa fa-lock txt-color-teal"></i> Informe o seu E-mail</b>
+								</label>
+							</section>
+
+							<section>
+								<label class="label">Senha<span style="color: red">*</span></label>
+								<label class="input"> <i class="icon-append fa fa-lock"></i>
+									<input type="password" name="research.senha"
+									required="required"> <b
+									class="tooltip tooltip-top-right"><i
+										class="fa fa-lock txt-color-teal"></i> Crie uma senha para
+										logar no sistema</b>
+								</label>
+							</section>
+
+							<%-- 							<input type="text" name="edit.id" value="${edit.id}"style="display:none"> --%>
+
 						</fieldset>
 						<footer>
-							<button type="submit" class="btn btn-primary">Cadastrar
+							<button type="submit" class="btn btn-success">Cadastrar
 								Pesquisador</button>
 						</footer>
 					</form>
@@ -515,7 +578,7 @@
 		</div>
 	</div>
 
-	</div>
+
 
 	<!--================================================== -->
 
@@ -565,37 +628,37 @@
 
 	<!-- MAIN APP JS FILE -->
 	<script src="${pageContext.request.contextPath}/static/js/app.min.js"></script>
-	
-		//Validação pesquisador estrangeiro	
-		<script language="javascript" type="text/javascript">
-			function Hab() {
-				if (document.getElementById("pesq_estr").checked==true) {
-					document.getElementById("cpf").disabled=true;
-				} else {
-					document.getElementById("cpf").disabled=false;
-				}
+
+	//Validação pesquisador estrangeiro
+	<script language="javascript" type="text/javascript">
+		function Hab() {
+			if (document.getElementById("pesq_estr").checked == true) {
+				document.getElementById("cpf").disabled = true;
+			} else {
+				document.getElementById("cpf").disabled = false;
 			}
-			function Des() {
-				if (document.getElementById("pesq_estr").checked==true) {
-					document.getElementById("cpf").disabled=true;
-					document.getElementById("rg").disabled=true;
-					document.getElementById("orgaoEm").disabled=true;
-					document.getElementById("dataEm").disabled=true;
-					document.getElementById("estadoEm").disabled=true;
-				} else {
-					document.getElementById("cpf").disabled=false;
-					document.getElementById("rg").disabled=false;
-					document.getElementById("orgaoEm").disabled=false;
-					document.getElementById("dataEm").disabled=false;
-					document.getElementById("estadoEm").disabled=false;
-					document.getElementById("cidadeEsRE").disabled=true;
-					document.getElementById("cidadeEsCo").disabled=true;
-				}
+		}
+		function Des() {
+			if (document.getElementById("pesq_estr").checked == true) {
+				document.getElementById("cpf").disabled = true;
+				document.getElementById("rg").disabled = true;
+				document.getElementById("orgaoEm").disabled = true;
+				document.getElementById("dataEm").disabled = true;
+				document.getElementById("estadoEm").disabled = true;
+			} else {
+				document.getElementById("cpf").disabled = false;
+				document.getElementById("rg").disabled = false;
+				document.getElementById("orgaoEm").disabled = false;
+				document.getElementById("dataEm").disabled = false;
+				document.getElementById("estadoEm").disabled = false;
+				document.getElementById("cidadeEsRE").disabled = true;
+				document.getElementById("cidadeEsCo").disabled = true;
 			}
-			function setDisabled() {
-				document.getElementById("cpf").disabled=true;
-			}
-		</script>
+		}
+		function setDisabled() {
+			document.getElementById("cpf").disabled = true;
+		}
+	</script>
 
 </body>
 </html>

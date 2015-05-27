@@ -13,7 +13,9 @@ import br.com.caelum.vraptor.validator.Severity;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 
+import com.sigfap.admin.model.dao.ResearchDAO;
 import com.sigfap.admin.model.dao.UserDAO;
+import com.sigfap.admin.model.entity.Research;
 import com.sigfap.admin.model.entity.User;
 import com.sigfap.admin.security.UserSession;
 import com.sigfap.admin.security.intercept.annotation.Public;
@@ -26,6 +28,9 @@ public class AuthController {
 
 	@Inject
 	private UserDAO dao;
+	
+	@Inject
+	private ResearchDAO dao1;
 
 	@Inject
 	private UserSession userSession;
@@ -34,13 +39,12 @@ public class AuthController {
 	 * @deprecated CDI eyes only
 	 */
 	protected AuthController() {
-		this(null, null);
+		this(null);
 	}
 
 	@Inject
-	public AuthController(Result result, Validator validator) {
+	public AuthController(Result result) {
 		this.result = result;
-		this.validator = validator;
 	}
 
 	@Public
@@ -50,28 +54,38 @@ public class AuthController {
 	}
 
 	@Public
-	@Post
 	@Path("/signup")
-	public void signup(User user) {
-		validator.addIf(dao.loginExists(user.getEmail()), new SimpleMessage(
-				"nome", "login.already.exists"));
-		validator.onErrorRedirectTo(this).index();
+	public void signup() {
+
+	}
+	
+	@Public
+	@Post
+	@Path("/save")
+	public void save(User user) {
+//		validator.addIf(dao.loginExists(user.getLogin()), new SimpleMessage(
+//				"e-mail", "login.already.exists"));
+//		validator.onErrorRedirectTo(this).index();
 
 		/**
 		 * Login == e-mail
 		 * */
 
-		user.setLogin(user.getEmail());
-		user.setPassword(DigestUtils.shaHex(user.getPassword()));
+		user.setLogin(user.getLogin());
+		user.setSenha(DigestUtils.shaHex(user.getSenha()));
 		try {
 			dao.persist(user);
 
-			validator.add(new SimpleMessage("sucess", "user.created.success",
-					Severity.SUCCESS));
+//			validator.add(new SimpleMessage("sucess", "user.created.success",
+//					Severity.SUCCESS));
+			result.include("mensagem", "Usuário cadastrado com sucesso.");
+						
 		} catch (Exception e) {
+//			validator.add(new SimpleMessage("error", "user.notcreated.error",Severity.ERROR));
 			result.include("error", "user.created.error" + e.getMessage());
+			result.include("mensagem", "Usuário não cadastrado.");
 		}
-
+		user=null;
 		result.redirectTo(this).index();
 	}
 
@@ -82,7 +96,7 @@ public class AuthController {
 		User userLogged = null;
 
 		try {
-			userLogged = dao.authentication(user.getLogin(), user.getPassword());
+			userLogged = dao.authentication(user.getLogin(), user.getSenha());
 			
 			if(userLogged == null)
 			{
@@ -97,11 +111,45 @@ public class AuthController {
 				
 				result.redirectTo(IndexController.class).index();
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.include("error", e.getMessage());
 			result.redirectTo(this).index();
 		}
+
+	}
+
+	@Public
+	@Post
+	@Path("/signinResearch")
+	public void signinResearch(Research research) {
+		Research researchLogged = null;
+
+		try {
+			researchLogged = dao1.authentication(research.getEmail(), research.getSenha());
+			
+			if(researchLogged == null)
+			{
+				result.include("error", "wrong.login.or.password");
+				result.redirectTo(this).index();
+			}
+			else
+			{
+				result.include("message", "successful.login");
+				
+//				userSession.setResearch(researchLogged);
+				
+				result.redirectTo(PanelController.class).index();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.include("error", e.getMessage());
+			result.redirectTo(this).index();
+		}
+		
+//		result.redirectTo(PanelController.class).index();
 
 	}
 

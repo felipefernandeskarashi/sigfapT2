@@ -40,7 +40,7 @@ public class Representative implements Serializable {
 	private String rgEmissao;
 	
 	@Column(name="representante_rg_data_emissao")
-	private Date rgDataEmissao;
+	private String rgDataEmissao;
 	
 	@Column(name="representante_cargo")
 	private String cargo;
@@ -109,11 +109,11 @@ public class Representative implements Serializable {
 		this.rgEmissao = rgEmissao;
 	}
 
-	public Date getRgDataEmissao() {
+	public String getRgDataEmissao() {
 		return rgDataEmissao;
 	}
 
-	public void setRgDataEmissao(Date rgDataEmissao) {
+	public void setRgDataEmissao(String rgDataEmissao) {
 		this.rgDataEmissao = rgDataEmissao;
 	}
 
@@ -166,5 +166,22 @@ public class Representative implements Serializable {
 				+ ", vigenciaInicio=" + vigenciaInicio + ", vigenciaTermino="
 				+ vigenciaTermino + "]";
 	}
+
+	public List<Unit> getUnidades() {
+		return unidades;
+	}
+
+	public void setUnidades(Unit unidades) {
+		this.unidades.add(unidades);
+	}
+
+	public Address getEnderecoRep() {
+		return enderecoRep;
+	}
+
+	public void setEnderecoRep(Address enderecoRep) {
+		this.enderecoRep = enderecoRep;
+	}
+	
 	
 }

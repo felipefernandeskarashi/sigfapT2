@@ -39,10 +39,10 @@ public class Unit implements Serializable{
 	private String publicar;
 	
 	@Column(name = "unidade_ativa")
-	private boolean ativa;
+	private Boolean ativa;
 	
 	@Column(name = "unidade_principal")
-	private boolean principal;
+	private Boolean principal;
 	
 	@Column(name = "unidade_fape_uso")
 	private Integer fapeUso;
@@ -64,20 +64,20 @@ public class Unit implements Serializable{
 	@OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
 	private List<Sector> setores = new ArrayList<Sector>();
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "pesquisadorUnidades")
-    private List<Research> pesquisadores = new ArrayList<Research>();
-	
 	@OneToOne
 	@JoinColumn(name = "endereco_id")
 	private Address enderecoUn;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "representante_unidade", joinColumns =
-    { @JoinColumn(name = "representante_id", nullable = false, updatable = false) }, inverseJoinColumns =
-    { @JoinColumn(name = "unidade_id", nullable = false, updatable = false) })
-    private List<Representative> representanteUnidades = new ArrayList<Representative>();
+	@OneToMany(mappedBy = "unidadeT", cascade = CascadeType.ALL)
+	private List<Telephone> telefones = new ArrayList<Telephone>();
 	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "pesquisadorUnidades")
+	private List<Research> pesquisadores = new ArrayList<Research>();
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "representante_unidade", joinColumns = { @JoinColumn(name = "representante_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "unidade_id", nullable = false, updatable = false) })
+	private List<Representative> representanteUnidades = new ArrayList<Representative>();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -110,7 +110,7 @@ public class Unit implements Serializable{
 		this.publicar = publicar;
 	}
 
-	public boolean isAtiva() {
+	public boolean getAtiva() {
 		return ativa;
 	}
 
@@ -174,9 +174,40 @@ public class Unit implements Serializable{
 	public void setEndereco(Address endereco){
 		this.enderecoUn = endereco;
 	}
-	
+
+	public List<Telephone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telephone> telefones) {
+		this.telefones = telefones;
+	}
+
 	public List<Research> getPesquisadores() {
 		return pesquisadores;
 	}
+
+	public void setPesquisadores(List<Research> pesquisadores) {
+		this.pesquisadores = pesquisadores;
+	}
+
+	public List<Representative> getRepresentanteUnidades() {
+		return representanteUnidades;
+	}
+
+	public void setRepresentanteUnidades(Representative representanteUnidades) {
+		this.representanteUnidades.add(representanteUnidades);
+	}
+
+	public void setSetores(List<Sector> setores) {
+		this.setores = setores;
+	}
+	
+	public String getAtivaText(){
+		if(this.getAtiva()) return "Ativa";
+		
+		return "Inativa";
+	}
+	
 	
 }

@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
@@ -91,19 +92,26 @@ public class ResearchController {
 			research.setArea(dao3.findById(areaId));
 			
 		try{
+			    research.setSenha(DigestUtils.shaHex(research.getSenha()));
+			    research.setAtivo(true);
 				dao.persist(research);
-				//telephone.setNumero(telephone);
+				
 				telephone.setPesquisador(research);
 				dao4.persist(telephone);
+				result.redirectTo(AuthController.class).index();
 		}
 		catch (Exception e) {
 				e.printStackTrace();
 				result.include("error", e.getMessage());
-					
+				result.redirectTo(this).index();					
 		}
-		result.redirectTo(this).index();
+		
 		
 	}
+	
+
+	
+
 
 
 }

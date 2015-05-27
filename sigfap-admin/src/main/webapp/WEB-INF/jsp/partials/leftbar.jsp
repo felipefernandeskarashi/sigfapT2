@@ -19,7 +19,6 @@
 	<!-- end user info -->
 
 	<!-- NAVIGATION : This navigation is also responsive
-
 	To make this navigation dynamic please make sure to link the node
 	(the reference to the nav > ul) after page load. Or the navigation
 	will not initialize.
@@ -38,12 +37,33 @@
 				<a href="${pageContext.request.contextPath}/user" title="Users"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Users</span></a>
 			</li>
 			<li>
-				<a href="index.html" title="Gas Station"><i class="fa fa-lg fa-fw fa-tachometer"></i> <span class="menu-item-parent">Gas Station</span></a>
+				<a href="${pageContext.request.contextPath}/registrar-instituicao" title="Criar Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Criar Instituição</span></a>
 			</li>
 			
 			<li>
-				<a href="index.html" title="Checkins"><i class="fa fa-lg fa-fw fa-map-marker"></i> <span class="menu-item-parent">Checkins</span></a>
+				<a href="${pageContext.request.contextPath}/inserir-unidade" title="Inserir Unidade"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Inserir Unidade</span></a>
 			</li>
+			<li>
+				<a href="${pageContext.request.contextPath}/buscar-instituicao" title="Buscar Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Buscar Instituição</span></a>
+			</li>
+			
+			<li>
+				<a href="${pageContext.request.contextPath}/registrar-instituicao-sugerida" title="Sugerir Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Sugerir Instituição</span></a>
+			</li>
+			
+			<li>
+				<a href="${pageContext.request.contextPath}/vincular-instituicao" title="Vincular Instituição"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Vincular Instituição</span></a>
+			</li>
+			
+			<li>
+				<a href="${pageContext.request.contextPath}/unit/buscar" title="Gerenciar Unidade"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Gerenciar Unidade</span></a>
+			</li>
+			
+			<li>
+				<a href="${pageContext.request.contextPath}/listResearch" title="Listar Pesquisadores"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">Listar Pesquisadores</span></a>
+			</li>
+		
+
 		</ul>
 	</nav>
 	<span class="minifyme" data-action="minifyMenu"> 

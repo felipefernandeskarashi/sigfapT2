@@ -151,12 +151,11 @@ public class UnitController{
 	@Path("/unit/edit/{id}")
 	public void edit (int id)
 	{
-		Address endereco = dao2.findById(id).getEndereco();
 		Unit unidade =  dao2.findById(id);
+		Address endereco = unidade.getEndereco();
 		List<Telephone> telefones  = dao4.findByCriteria(Restrictions.sqlRestriction("{alias}.unidade_id = "+id));
 		List<Representative> representantes = dao2.findById(id).getRepresentanteUnidades();
-		List<Address> enderecoR = dao3.findByCriteria(Restrictions.sqlRestriction
-				("{alias}.endereco_id = "+representantes.get(0).getId()));
+		Address enderecoR = representantes.get(0).getEnderecoRep();
 		List<Telephone> telefoneR = dao4.findByCriteria(Restrictions.sqlRestriction(
 				"{alias}.representante_id = "+representantes.get(0).getId()));
 		result.include("unidade", unidade);
@@ -164,7 +163,7 @@ public class UnitController{
 		result.include("telefone", telefones.get(0));
 		result.include("dirigente", representantes.get(0));
 		result.include("telefoneR", telefoneR.get(0));
-		result.include("enderecoR", enderecoR.get(0));
+		result.include("enderecoR", enderecoR);
 		result.include("instituicoes", dao.findAll());
 	}
 	
@@ -181,4 +180,6 @@ public class UnitController{
 		}
 		result.redirectTo(this).buscar();
 	}
+	
+	
 }

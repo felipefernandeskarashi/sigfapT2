@@ -61,7 +61,7 @@ public class Representative implements Serializable {
     private List<Unit> unidades = new ArrayList<Unit>();
 	
 	@OneToOne
-	@JoinColumn(name = "representante_id")
+	@JoinColumn(name = "endereco_id")
 	private Address enderecoRep;
 	
 	

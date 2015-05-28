@@ -75,7 +75,9 @@ public class Unit implements Serializable{
 	private List<Research> pesquisadores = new ArrayList<Research>();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "representante_unidade", joinColumns = { @JoinColumn(name = "representante_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "unidade_id", nullable = false, updatable = false) })
+	@JoinTable(name = "representante_unidade", joinColumns = {
+			@JoinColumn(name = "unidade_id", nullable = false, updatable = false) },
+			inverseJoinColumns = { @JoinColumn(name = "representante_id", nullable = false, updatable = false) })
 	private List<Representative> representanteUnidades = new ArrayList<Representative>();
 	
 	public Integer getId() {
@@ -208,6 +210,11 @@ public class Unit implements Serializable{
 		
 		return "Inativa";
 	}
+
+	public void setRepresentanteUnidades(List<Representative> representanteUnidades) {
+		this.representanteUnidades = representanteUnidades;
+	}
+	
 	
 	
 }

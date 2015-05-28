@@ -182,6 +182,10 @@ public class Representative implements Serializable {
 	public void setEnderecoRep(Address enderecoRep) {
 		this.enderecoRep = enderecoRep;
 	}
+
+	public void setUnidades(List<Unit> unidades) {
+		this.unidades = unidades;
+	}
 	
 	
 }

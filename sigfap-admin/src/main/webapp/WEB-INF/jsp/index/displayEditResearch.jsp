@@ -108,7 +108,7 @@
 			<!-- breadcrumb -->
 			<ol class="breadcrumb">
 				<li>Pesquisador</li>
-				<li>Buscar Pesquisador</li>
+				<li>Editar Pesquisador</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- You can also add more buttons to the
@@ -146,7 +146,7 @@
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i>
 								</span>
-								<h2>Pesquisador | Buscar Pesquisador</h2>
+								<h2>Pesquisador | Editar Pesquisador</h2>
 							</header>
 							<!-- widget div-->
 							<div>
@@ -166,7 +166,7 @@
 												<th>Curso</th>
 												<th>Tipo</th>
 												<th>Ativo</th>
-												<th>Vizualizar | Editar | Remover</th>
+												<th>Editar</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -180,14 +180,8 @@
 													<td>
 													<a
 														href="${linkTo[IndexController].editResearchAdm}${busca.id}"
-														class="btn btn-primary btn-circle btn-success"><i
-															class="glyphicon glyphicon-info-sign"></i></a> <a
-														href="${linkTo[IndexController].editResearchAdm}${busca.id}"
 														class="btn btn-primary btn-circle btn-warning"><i
-															class="glyphicon glyphicon-edit"></i></a> <a
-														href="${linkTo[IndexController].remove}${busca.id}"
-														class="btn btn-primary btn-circle btn-danger"><i
-															class="glyphicon glyphicon-remove"></i></a></td>
+															class="glyphicon glyphicon-edit"></i></a></td>
 												</tr>
 											</c:forEach>
 										</tbody>

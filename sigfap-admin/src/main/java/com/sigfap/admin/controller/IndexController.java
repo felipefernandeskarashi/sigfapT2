@@ -13,7 +13,6 @@ import br.com.caelum.vraptor.Result;
 
 import com.sigfap.admin.model.dao.ResearchDAO;
 import com.sigfap.admin.model.entity.Research;
-import com.sigfap.admin.security.intercept.annotation.Public;
 
 @Controller
 public class IndexController {
@@ -40,31 +39,29 @@ public class IndexController {
 
 	}
 
-	@Path("/findResearch")
+	@Path("/find/research")
 	public void findResearch() {
 
 	}
 
 	@Post
-	@Path("/displayResearch")
+	@Path("/display/research")
 	public void displayResearch(Research research) {
 		try {
 			dao.findByExample(research);
 			result.include("busca", dao.findByExample(research));
-			result.redirectTo(IndexController.class).index();
 		} catch (Exception e) {
 			result.redirectTo(this).index();
 		}
-		
+
 	}
 
-	@Path("/removeResearch")
+	@Path("/remove/research/find")
 	public void removeResearch() {
 
 	}
 
 	@Get
-	@Delete
 	@Path("/remove/{id}")
 	public void remove(int id) {
 		try {
@@ -76,30 +73,36 @@ public class IndexController {
 			result.redirectTo(this).index();
 		}
 	}
-	
-//	Institution delete = dao.findById(id);
-//	delete.setAtiva(false);
-//	dao.update(delete);
-//	result.redirectTo(this).buscar();
-	
-	
-	@Path("/listResearch")
+
+	// Tem que ver o path correto
+	@Post
+	@Path("/remove/research/display")
+	public void removeDisplayResearch(Research research) {
+		try {
+			List<Research> pesquisadores = dao.findByExample(research);
+			result.include("busca", pesquisadores);
+		} catch (Exception e) {
+			result.redirectTo(this).index();
+		}
+	}
+
+	@Path("/list/researchers")
 	public void listResearch() {
 		List<Research> listaPesquisadores = dao.findAll();
 		result.include("busca", listaPesquisadores);
 	}
-	
-	@Path("/editResearchAdm")
+
+	@Path("/edit/research/find")
 	public void editResearchAdm() {
 
 	}
 
 	@Post
-	@Path("/editAdm")
-	public void editAdm(Research research) {
+	@Path("/edit/research/display")
+	public void displayEditResearch(Research research) {
 		try {
-			dao.update(research);
-			result.redirectTo(IndexController.class).index();
+			List<Research> pesquisadores = dao.findByExample(research);
+			result.include("busca", pesquisadores);
 		} catch (Exception e) {
 			result.redirectTo(this).index();
 		}

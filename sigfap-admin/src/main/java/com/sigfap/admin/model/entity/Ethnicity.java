@@ -33,7 +33,7 @@ public class Ethnicity implements Serializable {
 	@OneToMany(mappedBy = "etniaPes", cascade = CascadeType.ALL)
 	private List<Research> pesquisadores = new ArrayList<Research>();
 	
-	public Boolean getAtiva() {
+	public boolean getAtiva() {
 		return ativa;
 	}
 	
@@ -45,7 +45,7 @@ public class Ethnicity implements Serializable {
 		return nome;
 	}
 	
-	public void setAtiva(Boolean ativa) {
+	public void setAtiva(boolean ativa) {
 		this.ativa = ativa;
 	}
 	

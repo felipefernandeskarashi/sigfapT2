@@ -120,7 +120,7 @@
 
 										<section>
 											<label class="label">Login [E-mail]</label> <label
-												class="input"> <i class="icon-append fa fa-user"></i>
+												class="input"> <i class="icon-append fa fa-envelope"></i>
 												<input type="email" name="research.email"> <b
 												class="tooltip tooltip-top-right"><i
 													class="fa fa-user txt-color-teal"></i> Por favor entre com
@@ -130,7 +130,7 @@
 
 										<section>
 											<label class="label">Senha</label> <label class="input">
-												<i class="icon-append fa fa-lock"></i> <input
+												<i class="icon-append fa fa-key"></i> <input
 												type="password" name="research.senha"> <b
 												class="tooltip tooltip-top-right"><i
 													class="fa fa-lock txt-color-teal"></i> Entre com sua senha</b>
@@ -166,7 +166,7 @@
 
 									<section>
 										<label class="label">Login [E-mail]</label> <label
-											class="input"> <i class="icon-append fa fa-user"></i>
+											class="input"> <i class="icon-append fa fa-envelope"></i>
 											<input type="email" name="user.login"> <b
 											class="tooltip tooltip-top-right"><i
 												class="fa fa-user txt-color-teal"></i> Por favor entre com
@@ -176,7 +176,7 @@
 
 									<section>
 										<label class="label">Senha</label> <label class="input">
-											<i class="icon-append fa fa-lock"></i> <input type="password"
+											<i class="icon-append fa fa-key"></i> <input type="password"
 											name="user.senha"> <b
 											class="tooltip tooltip-top-right"><i
 												class="fa fa-lock txt-color-teal"></i> Entre com sua senha</b>
@@ -260,7 +260,6 @@
 
 	<script type="text/javascript">
 		runAllForms();
-
 		$(function() {
 			// Validation
 			$("#login-form").validate({
@@ -276,7 +275,6 @@
 						maxlength : 20
 					}
 				},
-
 				// Messages for form validation
 				messages : {
 					email : {
@@ -287,7 +285,6 @@
 						required : 'Por favor entre com sua senha'
 					}
 				},
-
 				// Do not change code below
 				errorPlacement : function(error, element) {
 					error.insertAfter(element.parent());

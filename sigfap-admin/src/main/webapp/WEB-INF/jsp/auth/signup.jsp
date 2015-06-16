@@ -108,7 +108,7 @@
 						<fieldset>
 							<section>
 								<label class="label">Login [E-mail]</label> <label class="input">
-									<i class="icon-append fa fa-user"></i> <input type="email"
+									<i class="icon-append fa fa-envelope"></i> <input type="email"
 									name="user.login"> <b class="tooltip tooltip-top-right"><i
 										class="fa fa-user txt-color-teal"></i> Por favor informe o seu
 										e-mail</b>
@@ -117,7 +117,7 @@
 
 							<section>
 								<label class="label">Senha</label> <label class="input">
-									<i class="icon-append fa fa-lock"></i> <input type="password"
+									<i class="icon-append fa fa-key"></i> <input type="password"
 									name="user.senha"> <b class="tooltip tooltip-top-right"><i
 										class="fa fa-lock txt-color-teal"></i> Informe uma senha</b>
 								</label>
@@ -186,7 +186,6 @@
 
 	<script type="text/javascript">
 		runAllForms();
-
 		$(function() {
 			// Validation
 			$("#login-form").validate({
@@ -202,18 +201,16 @@
 						maxlength : 20
 					}
 				},
-
 				// Messages for form validation
 				messages : {
 					login : {
-						required : 'Please enter your email address',
-						login : 'Please enter a VALID email address'
+						required : 'Por favor entre com seu e-mail',
+						login : 'Por favor entre com um e-mail válido'
 					},
 					senha : {
-						required : 'Please enter your password'
+						required : 'Por favor entre com uma senha'
 					}
 				},
-
 				// Do not change code below
 				errorPlacement : function(error, element) {
 					error.insertAfter(element.parent());

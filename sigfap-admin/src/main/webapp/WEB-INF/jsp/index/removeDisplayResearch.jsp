@@ -32,25 +32,25 @@
 				title="Principal"><i class="fa fa-lg fa-fw fa-home"></i> <span
 					class="menu-item-parent">Principal</span></a></li>
 			<li><a><i class="fa fa-lg fa-fw fa-university"></i> <span
-					class="menu-item-parent">InstituiÃ§Ã£o</span></a>
+					class="menu-item-parent">Instituição</span></a>
 				<ul>
 					<li><a
 						href="${pageContext.request.contextPath}/registrar-instituicao"
 						title="Criar InstituiÃ§Ã£o"><i class="fa fa-lg fa-fw fa-plus"></i>
-							<span class="menu-item-parent">Criar InstituiÃ§Ã£o</span></a></li>
+							<span class="menu-item-parent">Criar Instituição</span></a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/buscar-instituicao"
 						title="Buscar InstituiÃ§Ã£o"><i class="fa fa-lg fa-fw fa-search"></i>
-							<span class="menu-item-parent">Buscar InstituiÃ§Ã£o</span></a></li>
+							<span class="menu-item-parent">Buscar Instituição</span></a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/vincular-instituicao"
 						title="Vincular InstituiÃ§Ã£o"><i
 							class="fa fa-lg fa-fw fa-chain"></i> <span
-							class="menu-item-parent">Vincular InstituiÃ§Ã£o</span></a></li>
+							class="menu-item-parent">Vincular Instituição</span></a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/registrar-instituicao-sugerida"
 						title="Sugerir InstituiÃ§Ã£o"><i class="fa fa-lg fa-fw fa-send"></i>
-							<span class="menu-item-parent">Sugerir InstituiÃ§Ã£o</span></a></li>
+							<span class="menu-item-parent">Sugerir Instituição</span></a></li>
 				</ul></li>
 
 			<li><a><i class="fa fa-lg fa-fw fa-sitemap"></i> <span
@@ -72,14 +72,14 @@
 						title="Listar Pesquisadores"><i
 							class="fa fa-lg fa-fw fa-list-ul"></i> <span
 							class="menu-item-parent">Listar Pesquisadores</span></a></li>
-					<li class="active"><a
+					<li><a
 						href="${pageContext.request.contextPath}/find/research"
 						title="Buscar Pesquisador"><i class="fa fa-lg fa-fw fa-search"></i>
 							<span class="menu-item-parent">Buscar Pesquisador</span></a></li>
 					<li><a href="${pageContext.request.contextPath}/edit/research"
 						title="Editar Pesquisador"><i class="fa fa-lg fa-fw fa-edit"></i>
 							<span class="menu-item-parent">Editar Pesquisador</span></a></li>
-					<li><a href="${pageContext.request.contextPath}/remove/research/find"
+					<li class="active"><a href="${pageContext.request.contextPath}/remove/research/find"
 						title="Remover Pesquisador"><i class="fa fa-lg fa-fw fa-times"></i>
 							<span class="menu-item-parent">Remover Pesquisador</span></a></li>
 				</ul></li>
@@ -108,7 +108,7 @@
 			<!-- breadcrumb -->
 			<ol class="breadcrumb">
 				<li>Pesquisador</li>
-				<li>Buscar Pesquisador</li>
+				<li>Remover Pesquisador</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- You can also add more buttons to the
@@ -146,7 +146,7 @@
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i>
 								</span>
-								<h2>Pesquisador | Buscar Pesquisador</h2>
+								<h2>Pesquisador | Remover Pesquisador</h2>
 							</header>
 							<!-- widget div-->
 							<div>
@@ -166,7 +166,7 @@
 												<th>Curso</th>
 												<th>Tipo</th>
 												<th>Ativo</th>
-												<th>Vizualizar | Editar | Remover</th>
+												<th>Remover</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -177,14 +177,7 @@
 													<td>${busca.curso}</td>
 													<td>${busca.tipo}</td>
 													<td>${busca.ativo}</td>
-													<td>
-													<a
-														href="${linkTo[IndexController].editResearchAdm}${busca.id}"
-														class="btn btn-primary btn-circle btn-success"><i
-															class="glyphicon glyphicon-info-sign"></i></a> <a
-														href="${linkTo[IndexController].editResearchAdm}${busca.id}"
-														class="btn btn-primary btn-circle btn-warning"><i
-															class="glyphicon glyphicon-edit"></i></a> <a
+													<td><a
 														href="${linkTo[IndexController].remove}${busca.id}"
 														class="btn btn-primary btn-circle btn-danger"><i
 															class="glyphicon glyphicon-remove"></i></a></td>
@@ -211,7 +204,7 @@
 	<div class="page-footer">
 		<div class="row">
 			<div class="col-xs-12 col-sm-6">
-				<span class="txt-color-white">SmartAdmin WebApp Â© 2013-2014</span>
+				<span class="txt-color-white">SmartAdmin WebApp © 2013-2014</span>
 			</div>
 
 			<div class="col-xs-6 col-sm-6 text-right hidden-xs">

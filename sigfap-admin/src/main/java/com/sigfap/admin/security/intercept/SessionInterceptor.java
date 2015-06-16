@@ -14,6 +14,7 @@ import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.interceptor.SimpleInterceptorStack;
 
 import com.sigfap.admin.controller.AuthController;
+import com.sigfap.admin.security.ResearchSession;
 import com.sigfap.admin.security.UserSession;
 import com.sigfap.admin.security.intercept.annotation.Public;
 
@@ -33,6 +34,9 @@ public class SessionInterceptor
 	
 	@Inject
     private UserSession userSession;
+
+	@Inject
+    private ResearchSession researchSession;
 
 	/**
 	 * Verica se action do Controller possui a annotation @Public
@@ -56,7 +60,7 @@ public class SessionInterceptor
     {
     	logger.debug("Intercept!");
     	
-    	if (userSession.isLogged()) 
+    	if (userSession.isLogged() || researchSession.isLogged()) 
     		stack.next();
         else 
         	result.redirectTo(AuthController.class).index();

@@ -9,14 +9,13 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.validator.Severity;
-import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 
 import com.sigfap.admin.model.dao.ResearchDAO;
 import com.sigfap.admin.model.dao.UserDAO;
 import com.sigfap.admin.model.entity.Research;
 import com.sigfap.admin.model.entity.User;
+import com.sigfap.admin.security.ResearchSession;
 import com.sigfap.admin.security.UserSession;
 import com.sigfap.admin.security.intercept.annotation.Public;
 
@@ -34,6 +33,9 @@ public class AuthController {
 
 	@Inject
 	private UserSession userSession;
+
+	@Inject
+	private ResearchSession researchSession;
 
 	/**
 	 * @deprecated CDI eyes only
@@ -138,7 +140,7 @@ public class AuthController {
 			{
 				result.include("message", "successful.login");
 				
-//				userSession.setResearch(researchLogged);
+				researchSession.setResearch(researchLogged);
 				
 				result.redirectTo(PanelController.class).index();
 			}

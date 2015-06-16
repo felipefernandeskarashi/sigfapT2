@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.sigfap</groupId>
-	<artifactId>sigfap</artifactId>
+	<groupId>com.sigfapT2</groupId>
+	<artifactId>sigfapT2</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 
@@ -112,7 +112,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>sigfap-admin</finalName>
+		<finalName>sigfap-adminT2</finalName>
 		<outputDirectory>/tmp/classes</outputDirectory>
 		<plugins>
 			<plugin>

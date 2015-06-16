@@ -32,26 +32,23 @@ public class EthnicityController {
 	
 	/** V1 - Versão 1 **/
 	
-	@Get
-	@Path("/v1/ethnicities")
+	
+	@Get("/v1/ethnicities")
 	public void listarEtnia(){
 		
 	}
 	
-	@Post
-	@Path("/v1/ethnicity")
+	@Post("/v1/ethnicity")
 	public void inserirEtnia(){
 		
 	}
 	
-	@Put
-	@Path("/v1/ethnicity")
+	@Put("/v1/ethnicity")
 	public void editarEtnia(){
 		
 	}
 	
-	@Delete
-	@Path("/v1/ethnicity")
+	@Delete("/v1/ethnicity")
 	public void removerEtnia(){
 		
 	}

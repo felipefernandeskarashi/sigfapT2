@@ -33,26 +33,22 @@ public class InstitutionController {
 	
 	/** V1 - Versão 1 **/
 	
-	@Get
-	@Path("/v1/institutions")
+	@Get("/v1/institutions")
 	public void listarInstituicao(){
 		
 	}
 	
-	@Post
-	@Path("/v1/institution")
+	@Post("/v1/institution")
 	public void inserirInstituicao(){
 		
 	}
 	
-	@Put
-	@Path("/v1/institution")
+	@Put("/v1/institution")
 	public void editarInstituicao(){
 		
 	}
 	
-	@Delete
-	@Path("/v1/institution")
+	@Delete("/v1/institution")
 	public void removerInstituicao(){
 		
 	}

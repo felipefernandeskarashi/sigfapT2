@@ -33,7 +33,7 @@ public class Sector implements Serializable{
 		
 	}
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "unidade_id", insertable = true, updatable = true)
 	private Unit unidade;
 

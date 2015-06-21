@@ -16,6 +16,7 @@ import br.com.caelum.vraptor.view.Results;
 
 import com.sigfap.admin.model.dao.SkillDAO;
 import com.sigfap.admin.model.entity.Skill;
+import com.sigfap.admin.security.intercept.annotation.Public;
 
 @Controller
 public class FieldResearchController {
@@ -29,25 +30,30 @@ public class FieldResearchController {
 	 * @deprecated CDI eyes only
 	 */
 	protected FieldResearchController() {
-		this(null);
+		this(null, null);
 	}
 
 	@Inject
-	public FieldResearchController(Result result1) {
+	public FieldResearchController(Result result1, SkillDAO dao) {
 		this.result1 = result1;
+		this.dao = dao;
 	}
 
 	/** V1 - Versão 1 **/
-
+	
+	@Public
 	@Get("/v1/fieldsresearch")
 	public void listarArea() {
 		List<Skill> temp = dao.findAll();
+		
 		com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
 		result.setAreas(temp);
-		result1.use(Results.json()).from(result).serialize();
+		
+		result1.use(Results.json()).from(result).recursive().serialize();
 		result1.include("areas", result);
 	}
 
+	@Public
 	@Post("/v1/fieldresearch")
 	public void inserirArea(Skill skill) {
 		try {
@@ -63,27 +69,27 @@ public class FieldResearchController {
 		}
 	}
 
+	@Public
 	@Put("/v1/fieldresearch")
 	public void editarArea() {
 
 	}
 
+	@Public
 	@Delete("/v1/fieldresearch/{id}")
 	public void removerArea(int id) {
-		Skill temp = dao.findById(id);
+		Skill skill = dao.findById(id);
 		try {
 			dao.deleteById(id);
 			com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
-			result.getAreas().add(temp);
-			result1.use(Results.json()).from(result).recursive()
-					.exclude("setores.unidade").serialize();
+			result.getAreas().add(skill);
+			
+			result1.use(Results.json()).from(result).recursive().serialize();
 			result1.include(result);
 		} catch (Exception e) {
-			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
-					"Objeto não encontrado");
+			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error("Área não encontrada.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-			System.out.println(id);
 		}
 	}
 

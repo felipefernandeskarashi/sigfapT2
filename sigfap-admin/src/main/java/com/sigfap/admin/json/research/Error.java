@@ -1,4 +1,4 @@
-package com.sigfap.admin.json.user;
+package com.sigfap.admin.json.research;
 
 import java.io.Serializable;
 

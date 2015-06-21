@@ -20,7 +20,8 @@ public class Result implements Serializable {
     private List<User> usuarios;
     
     public Result() {
-    	
+    	this.code = "SUCCESS";
+		this.usuarios = new ArrayList<User>();
     }
 	
     public Result(User value){

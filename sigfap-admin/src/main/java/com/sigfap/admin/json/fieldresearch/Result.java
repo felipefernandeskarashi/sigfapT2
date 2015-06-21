@@ -20,7 +20,8 @@ public class Result implements Serializable {
     private List<Skill> areas;
     
     public Result() {
-    	
+    	this.code = "SUCCESS";
+    	this.areas = new ArrayList<Skill>();
     }
 	
     public Result(Skill value){

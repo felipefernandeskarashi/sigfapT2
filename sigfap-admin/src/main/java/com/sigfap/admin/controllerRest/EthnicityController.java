@@ -1,5 +1,7 @@
 package com.sigfap.admin.controllerRest;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.caelum.vraptor.Controller;
@@ -40,10 +42,23 @@ public class EthnicityController {
 	
 	/** V1 - Versão 1 **/
 	
-	
-	@Get("/v1/ethnicities")
+	@Public
+	@Get
+	@Path("/v1/ethnicities")
 	public void listarEtnia(){
-		
+				
+			List<Ethnicity> lista = dao.findAll();
+			
+			if(!lista.isEmpty()){
+				com.sigfap.admin.json.ethnicity.Result result1 = new com.sigfap.admin.json.ethnicity.Result();
+				result1.setValue(lista);
+				result.use(Results.json()).from(result1).exclude("value.pesquisadores").recursive().serialize();
+			}
+			else{
+				com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error();
+				result.use(Results.json()).from(error).recursive().serialize();
+			}
+
 	}
 	
 	@Public
@@ -53,9 +68,11 @@ public class EthnicityController {
 		
 		try {
 			
-			dao.persist(ethnicity);
-			com.sigfap.admin.json.ethnicity.Result result1 = new com.sigfap.admin.json.ethnicity.Result(ethnicity);
+			dao.persist(ethnicity);			
+			com.sigfap.admin.json.ethnicity.Result result1 = new com.sigfap.admin.json.ethnicity.Result();
+			result1.getValue().add(ethnicity);
 			result.use(Results.json()).from(result1).exclude("value.pesquisadores").recursive().serialize();
+			
 		} catch (Exception e) {
 			
 			com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("Impossivel criar Etnia");

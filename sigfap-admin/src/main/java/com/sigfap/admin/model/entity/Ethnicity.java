@@ -24,17 +24,17 @@ public class Ethnicity implements Serializable {
 	@Column(name = "etnia_id")
 	private Integer id;
 	
-	@Column(name = "etnia_nome")
-	private String nome;
-	
 	@Column(name = "etnia_ativa")
 	private Boolean ativa;
+	
+	@Column(name = "etnia_nome")
+	private String nome;
 	
 	@OneToMany(mappedBy = "etniaPes", cascade = CascadeType.ALL)
 	private List<Research> pesquisadores = new ArrayList<Research>();
 	
 	public Ethnicity() {
-		this.ativa = true;
+		
 	}
 
 	public boolean getAtiva() {

@@ -14,28 +14,25 @@ public class Result implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String code;
-	private Ethnicity value;
+	private List<Ethnicity> value;
 	
-	
-	
-	
-	public Result(Ethnicity value) {
+	public Result() {
 		super();
 		this.code = "SUCESS";
-		this.value = value;
+		this.value = new ArrayList<Ethnicity>();
 	}
+
 	public String getCode() {
 		return code;
 	}
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Ethnicity getValue() {
+	public List<Ethnicity> getValue() {
 		return value;
 	}
-	public void setValue(Ethnicity value) {
+	public void setValue(List<Ethnicity> value) {
 		this.value = value;
 	}
 	
-
 }

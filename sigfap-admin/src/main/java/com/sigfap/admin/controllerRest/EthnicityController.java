@@ -76,18 +76,50 @@ public class EthnicityController {
 		} catch (Exception e) {
 			
 			com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("Impossivel criar Etnia");
-			result.use(Results.json()).from(error).serialize(); //devolver o error serializado em json			
+			result.use(Results.json()).from(error).serialize(); 			
 		}
 	}
 	
-	@Put("/v1/ethnicity")
-	public void editarEtnia(){
+	@Public
+	@Put
+	@Path("/v1/ethnicity/{id}")
+	public void editarEtnia(Ethnicity ethnicity){
+		
+		try {
+			
+			dao.update(ethnicity);
+			com.sigfap.admin.json.ethnicity.Result result1 = new com.sigfap.admin.json.ethnicity.Result();
+			result1.getValue().add(ethnicity);
+			result.use(Results.json()).from(result1).exclude("value.pesquisadores").recursive().serialize();
+			
+		} catch (Exception e) {
+			
+			com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("Impossivel editar Etnia");
+			result.use(Results.json()).from(error).serialize(); 
+		}
+		
 		
 	}
 	
-	@Delete("/v1/ethnicity")
-	public void removerEtnia(){
-		
+	@Public
+	@Delete
+	@Path("/v1/ethnicity/{id}")
+	public void removerEtnia(int id){
+	
+		//Danger, Not totally ok.
+		try {
+			
+			Ethnicity ethnicity = dao.findById(id);
+			dao.deleteById(id);
+			com.sigfap.admin.json.ethnicity.Result result1 = new com.sigfap.admin.json.ethnicity.Result();
+			result1.getValue().add(ethnicity);
+			result.use(Results.json()).from(result1).exclude("value.pesquisadores").recursive().serialize();
+			
+		} catch (Exception e) {
+			
+			com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("Impossivel remover Etnia");
+			result.use(Results.json()).from(error).serialize(); 
+		}
 	}
 	
 	

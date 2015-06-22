@@ -19,44 +19,49 @@ import com.sigfap.admin.model.dao.UserDAO;
 import com.sigfap.admin.model.entity.User;
 import com.sigfap.admin.security.intercept.annotation.Public;
 
-
-
 @Controller
 public class UserController {
 
 	private final Result result1;
-	
+
 	@Inject
 	private UserDAO dao;
-	
+
 	/**
 	 * @deprecated CDI eyes only
 	 */
-	protected UserController(){
+	protected UserController() {
 		this(null, null);
 	}
 
-	@Inject	
+	@Inject
 	public UserController(Result result1, UserDAO dao) {
 		this.result1 = result1;
 		this.dao = dao;
 	}
-	
-	
+
 	/** V1 - Versão 1 **/
-	
+
 	@Public
 	@Get("/v1/users")
 	public void listarUsuario() {
-			List<User> users = dao.findAll();
-			
+		List<User> users = dao.findAll();
+
+		if (!users.isEmpty()) {
 			com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
-			result.setUsuarios(users);
-			
+
+			result.setValue(users);
+
 			result1.use(Results.json()).from(result).recursive().serialize();
 			result1.include("usuarios", result);
+		} else {
+			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+					"Nenhum usuário cadastrado.");
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		}
 	}
-	
+
 	@Public
 	@Post
 	@Path("/v1/user")
@@ -65,41 +70,59 @@ public class UserController {
 		user.setSenha(DigestUtils.shaHex(user.getSenha()));
 		try {
 			dao.persist(user);
-			com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result(user);
-			
-			result.getUsuarios().add(user);
+			com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
+
+			result.getValue().add(user);
+
 			result1.use(Results.json()).from(result).recursive().serialize();
 			result1.include(result);
 		} catch (Exception e) {
-			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error("Impossivel criar usuário.");
+			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+					"Impossivel criar usuário.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
 		}
 	}
-	
+
 	@Public
 	@Put("/v1/user")
-	public void editarUsuario(){
-		
+	public void editarUsuario(User user) {
+		user.setLogin(user.getLogin());
+		user.setSenha(DigestUtils.shaHex(user.getSenha()));
+
+		try {
+			dao.update(user);
+			com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
+
+			result.getValue().add(user);
+
+			result1.use(Results.json()).from(result)
+					.exclude("value.pesquisadores").recursive().serialize();
+		} catch (Exception e) {
+			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+					"Impossivel editar usuário.");
+			result1.use(Results.json()).from(error).serialize();
+		}
 	}
-	
+
 	@Public
 	@Delete("/v1/user/{id}")
-	public void removerUsuario(int id){
+	public void removerUsuario(int id) {
 		User user = dao.findById(id);
 		try {
 			dao.deleteById(id);
 			com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
-			result.getUsuarios().add(user);
-			
+
+			result.getValue().add(user);
+
 			result1.use(Results.json()).from(result).recursive().serialize();
 			result1.include(result);
-		}
-		catch (Exception e) {
-			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error("Usuário não encontrado.");
+		} catch (Exception e) {
+			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+					"Usuário não encontrado.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
 		}
 	}
-	
+
 }

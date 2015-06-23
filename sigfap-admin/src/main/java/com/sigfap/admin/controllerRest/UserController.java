@@ -71,7 +71,7 @@ public class UserController {
 		try {
 			dao.persist(user);
 			com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
-
+			
 			result.getValue().add(user);
 
 			result1.use(Results.json()).from(result).recursive().serialize();
@@ -93,11 +93,11 @@ public class UserController {
 		try {
 			dao.update(user);
 			com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
-
+			
 			result.getValue().add(user);
 
-			result1.use(Results.json()).from(result)
-					.exclude("value.pesquisadores").recursive().serialize();
+			result1.use(Results.json()).from(result).recursive().serialize();
+			result1.include(result);
 		} catch (Exception e) {
 			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
 					"Impossivel editar usuário.");

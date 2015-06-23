@@ -9,6 +9,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
@@ -65,14 +66,13 @@ public class FieldResearchController {
 	@Public
 	@Post("/v1/fieldresearch")
 	public void inserirArea(Skill skill) {
-		skill.setVerificador(skill.getVerificador());
-		skill.setArea_nome(skill.getArea_nome());
-		skill.setArea_ativa(skill.isArea_ativa());
-
-		try {
+			skill.setVerificador(skill.getVerificador());
+			skill.setArea_nome(skill.getArea_nome());
+			skill.setArea_ativa(skill.isArea_ativa());
+			try {
 			dao.persist(skill);
 			com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
-			
+
 			result.getValue().add(skill);
 
 			result1.use(Results.json()).from(result).exclude("value.pesquisadores").recursive().serialize();
@@ -80,16 +80,30 @@ public class FieldResearchController {
 		} catch (ConstraintViolationException e) {
 			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
 					"Erro ao cadastrar área de conhecimento.");
-			
+
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
 		}
 	}
 
 	@Public
-	@Put("/v1/fieldresearch")
-	public void editarArea() {
+	@Put
+	@Path("/v1/fieldresearch")
+	public void editarArea(Skill skill) {
+		try {
+			dao.update(skill);
+			com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
 
+			result.getValue().add(skill);
+
+			result1.use(Results.json()).from(result)
+					.exclude("value.pesquisadores").recursive().serialize();
+			result1.include(result);
+		} catch (Exception e) {
+			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
+					"Impossivel editar área de conhecimento.");
+			result1.use(Results.json()).from(error).serialize();
+		}
 	}
 
 	@Public
@@ -102,7 +116,8 @@ public class FieldResearchController {
 
 			result.getValue().add(skill);
 
-			result1.use(Results.json()).from(result).exclude("value.pesquisadores").recursive().serialize();
+			result1.use(Results.json()).from(result)
+					.exclude("value.pesquisadores").recursive().serialize();
 			result1.include(result);
 		} catch (Exception e) {
 			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(

@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:web="http://java.sun.com/xml/ns/javaee" 
-	xmlns="http://java.sun.com/xml/ns/javaee" 
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:web="http://java.sun.com/xml/ns/javaee" xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
 
-  <display-name>sigfap</display-name>
-  
-  <context-param>
-    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-    <param-value>messages</param-value>
-  </context-param>
-  
-  <listener>
-    <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
-  </listener>
-  
+	<display-name>sigfap</display-name>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>sigfap</web-resource-name>
+			<url-pattern>/*</url-pattern>
+			<http-method>PUT</http-method>
+		</web-resource-collection>
+	</security-constraint>
+	
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>messages</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+	</listener>
+
 </web-app>

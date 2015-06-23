@@ -17,6 +17,7 @@ public class Result implements Serializable {
 	
 	private List<Research> value;
 	
+<<<<<<< HEAD
     public Result() {
     	this.code = "SUCCESS";
 		this.value = new ArrayList<Research>();
@@ -30,6 +31,22 @@ public class Result implements Serializable {
 		this.value = value;
 	}
 
+=======
+    public Result(){
+    	super();
+		this.code = "SUCCESS";
+		this.value = new ArrayList<Research>();
+	}
+    
+    public List<Research> getValue() {
+		return value;
+	}
+    
+    public void setValue(List<Research> value) {
+		this.value = value;
+	}
+    
+>>>>>>> c989b65612bfd7473a1452751b334ed4bdf3f12d
 	public String getCode() {
 		return code;
 	}

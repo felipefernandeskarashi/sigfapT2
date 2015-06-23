@@ -106,12 +106,9 @@ public class EthnicityController {
 	@Path("/v1/ethnicity/{id}")
 	public void removerEtnia(Ethnicity ethnicity){
 	
-		//Danger, Not totally ok.
 		
 		try {
 			
-			//Ethnicity ethnicity = dao.findById(id);			
-			//dao.deleteById(id);
 			dao.delete(ethnicity);			
 			com.sigfap.admin.json.ethnicity.Result result1 = new com.sigfap.admin.json.ethnicity.Result();
 			result1.getValue().add(ethnicity);

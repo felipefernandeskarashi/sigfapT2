@@ -15,38 +15,21 @@ public class Result implements Serializable {
 	
 	private String code;
 	
-	private Skill value;
+	private List<Skill> value;
 	
-    private List<Skill> areas;
-    
     public Result() {
     	this.code = "SUCCESS";
-    	this.areas = new ArrayList<Skill>();
+    	this.value = new ArrayList<Skill>();
     }
 	
-    public Result(Skill value){
-    	super();
-		this.code = "SUCCESS";
-		this.value = value;
-		this.areas = new ArrayList<Skill>();
-	}
-	
-	public void setAreas(List<Skill> area){
-		this.areas = area;
-	}
-	
-	public List<Skill> getAreas(){
-		return this.areas;
-	}
-
-	public Skill getValue() {
+	public List<Skill> getValue() {
 		return value;
 	}
 
-	public void setValue(Skill value) {
+	public void setValue(List<Skill> value) {
 		this.value = value;
 	}
-	
+
 	public String getCode() {
 		return code;
 	}

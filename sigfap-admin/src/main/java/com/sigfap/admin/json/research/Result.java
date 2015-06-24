@@ -15,38 +15,22 @@ public class Result implements Serializable {
 	
 	private String code;
 	
-	private Research value;
+	private List<Research> value;
 	
-    private List<Research> pesquisadores;
-    
-    public Result() {
-    	this.code = "SUCCESS";
-		this.pesquisadores = new ArrayList<Research>();
-    }
-	
-    public Result(Research value){
+    public Result(){
     	super();
 		this.code = "SUCCESS";
-		this.value = value;
-		this.pesquisadores = new ArrayList<Research>();
+		this.value = new ArrayList<Research>();
 	}
-	
-	public void setPesquisadores(List<Research> pesquisador){
-		this.pesquisadores = pesquisador;
-	}
-	
-	public List<Research> getPesquisadores(){
-		return this.pesquisadores;
-	}
-
-	public Research getValue() {
+    
+    public List<Research> getValue() {
 		return value;
 	}
-
-	public void setValue(Research value) {
+    
+    public void setValue(List<Research> value) {
 		this.value = value;
 	}
-	
+    
 	public String getCode() {
 		return code;
 	}

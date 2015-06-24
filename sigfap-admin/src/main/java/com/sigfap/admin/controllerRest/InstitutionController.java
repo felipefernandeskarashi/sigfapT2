@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.hibernate.exception.JDBCConnectionException;
+
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
@@ -68,10 +70,33 @@ public class InstitutionController {
 		
 		try {
 			
+			if(institution.getNome() == null){
+				com.sigfap.admin.json.institution.Error error = new com.sigfap.admin.json.institution.Error("O campo nome deve ser preenchido");
+				result.use(Results.json()).from(error).serialize(); 
+				return;			
+			}
+			
+			if(institution.getSigla() == null){
+				com.sigfap.admin.json.institution.Error error = new com.sigfap.admin.json.institution.Error("O campo sigla deve ser preenchido");
+				result.use(Results.json()).from(error).serialize(); 
+				return;			
+			}	
+			
+			if(institution.getDependenciaAdm() < 1 || institution.getDependenciaAdm() > 6){
+				com.sigfap.admin.json.institution.Error error = new com.sigfap.admin.json.institution.Error("O campo dependencia administrativa deve estar entre 1 e 6");
+				result.use(Results.json()).from(error).serialize(); 
+				return;
+			}
+			
 			dao.persist(institution);			
 			com.sigfap.admin.json.institution.Result result1 = new com.sigfap.admin.json.institution.Result();
 			result1.getValue().add(institution);
 			result.use(Results.json()).from(result1).exclude("value.unidades").recursive().serialize();
+			
+		}catch(JDBCConnectionException e){
+			
+			com.sigfap.admin.json.institution.Error error = new com.sigfap.admin.json.institution.Error("Problema de conexão com o banco");
+			result.use(Results.json()).from(error).recursive().serialize();
 			
 		} catch (Exception e) {
 			

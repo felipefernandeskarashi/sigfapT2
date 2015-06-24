@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.hibernate.exception.JDBCConnectionException;
+
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
@@ -55,7 +57,7 @@ public class EthnicityController {
 				result.use(Results.json()).from(result1).exclude("value.pesquisadores").recursive().serialize();
 			}
 			else{
-				com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error();
+				com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("Lista não encontrada");
 				result.use(Results.json()).from(error).recursive().serialize();
 			}
 
@@ -67,11 +69,22 @@ public class EthnicityController {
 	public void inserirEtnia(Ethnicity ethnicity){
 		
 		try {
+		
+			if(ethnicity.getNome() == null){
+				com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("O campo nome deve ser preenchido");
+				result.use(Results.json()).from(error).serialize(); 
+				return;			
+			}	
 			
 			dao.persist(ethnicity);			
 			com.sigfap.admin.json.ethnicity.Result result1 = new com.sigfap.admin.json.ethnicity.Result();
 			result1.getValue().add(ethnicity);
 			result.use(Results.json()).from(result1).exclude("value.pesquisadores").recursive().serialize();
+			
+		} catch(JDBCConnectionException e){
+			
+			com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("Problema de conexão com o banco");
+			result.use(Results.json()).from(error).recursive().serialize();
 			
 		} catch (Exception e) {
 			
@@ -87,10 +100,21 @@ public class EthnicityController {
 		
 		try {
 			
+			if(ethnicity.getNome() == null){
+				com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("O campo nome deve ser preenchido");
+				result.use(Results.json()).from(error).serialize(); 
+				return;			
+			}
+			
 			dao.update(ethnicity);
 			com.sigfap.admin.json.ethnicity.Result result1 = new com.sigfap.admin.json.ethnicity.Result();
 			result1.getValue().add(ethnicity);
 			result.use(Results.json()).from(result1).exclude("value.pesquisadores").recursive().serialize();
+			
+		} catch(JDBCConnectionException e){
+			
+			com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("Problema de conexão com o banco");
+			result.use(Results.json()).from(error).recursive().serialize();
 			
 		} catch (Exception e) {
 			
@@ -113,6 +137,11 @@ public class EthnicityController {
 			com.sigfap.admin.json.ethnicity.Result result1 = new com.sigfap.admin.json.ethnicity.Result();
 			result1.getValue().add(ethnicity);
 			result.use(Results.json()).from(result1).exclude("value.pesquisadores").recursive().serialize();
+			
+		} catch(JDBCConnectionException e){
+			
+			com.sigfap.admin.json.ethnicity.Error error = new com.sigfap.admin.json.ethnicity.Error("Problema de conexão com o banco");
+			result.use(Results.json()).from(error).recursive().serialize();
 			
 		} catch (Exception e) {
 			

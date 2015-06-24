@@ -96,8 +96,7 @@ public class SectorController {
 			com.sigfap.admin.json.sector.Result result = 
 					new com.sigfap.admin.json.sector.Result();
 			result.getSetores().add(temp);
-			result1.use(Results.json()).from(result).recursive()
-				.exclude(sector.unidade.id"setores.unidade").serialize();
+			result1.use(Results.json()).from(result).include("setores").serialize();
 			result1.include(result);
 		}catch(Exception e){
 			com.sigfap.admin.json.sector.Error error = 

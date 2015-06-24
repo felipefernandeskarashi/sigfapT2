@@ -29,10 +29,7 @@ public class ResearchController {
 
 	private final Result result1;
 
-<<<<<<< HEAD
 	@Inject
-=======
->>>>>>> c8b002fb1eef16bf99f6233222834731a37105d2
 	private ResearchDAO dao;
 
 	@Inject
@@ -76,7 +73,7 @@ public class ResearchController {
 			// .include("value.etniaPes").include("value.enderecoRes")
 			// .include("value.enderecoCom").include("value.area")
 			// .recursive().serialize();
-<<<<<<< HEAD
+
 			result1.use(Results.json()).from(result).include("value")
 					.exclude("value.pesquisadorUnidades").recursive()
 					.serialize();
@@ -84,40 +81,24 @@ public class ResearchController {
 		} else {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"Nenhum pesquisador cadastrado.");
-=======
-			result1.use(Results.json()).from(result).exclude("value.pesquisadorUnidades").recursive().serialize();
-			result1.include("pesquisadores", result);
-		} else {
-			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-					"Nenhum pesquisador cadastrad.");
->>>>>>> c8b002fb1eef16bf99f6233222834731a37105d2
-			result1.use(Results.json()).from(error).serialize();
-			result1.include(error);
+			result1.use(Results.json()).from(error)
+					.exclude("value.pesquisadorUnidades").recursive()
+					.serialize();
+			result1.include("pesquisadores", error);
 		}
 	}
 
 	@Public
 	@Post("/v1/researcher")
-<<<<<<< HEAD
 	public void inserirPesquisador(Research research, Address address,
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
 		try {
 			dao1.persist(address);
 			dao1.persist(address2);
-=======
-	public void inserirPesquisador(Research research) {
-
-	}
-
-	@Public
-	@Put("/v1/researcher")
-	public void editarPesquisador() {
->>>>>>> c8b002fb1eef16bf99f6233222834731a37105d2
 
 			com.sigfap.admin.json.address.Result resultAddress = new com.sigfap.admin.json.address.Result();
 
-<<<<<<< HEAD
 			resultAddress.getValue().add(address);
 			resultAddress.getValue().add(address2);
 
@@ -132,29 +113,31 @@ public class ResearchController {
 		research.setEnderecoCom(address2);
 
 		research.setEtniaPes(dao2.findById(etniaId));
-//		research.setArea(dao3.findById(areaId));
+		// research.setArea(dao3.findById(areaId));
 
-//		try {
-//			research.setSenha(DigestUtils.shaHex(research.getSenha()));
-//			research.setAtivo(true);
-//			dao.persist(research);
-//
-//			telephone.setPesquisador(research);
-//			dao4.persist(telephone);
-//
-//			com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
-//
-//			result.getValue().add(research);
-//
-//			result1.use(Results.json()).from(result).recursive().serialize();
-//
-//		} catch (Exception e) {
-//			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-//					"Impossível cadastrar pesquisador.");
-//			result1.use(Results.json()).from(error).serialize();
-//			result1.include(error);
-//		}
-//
+		// try {
+		// research.setSenha(DigestUtils.shaHex(research.getSenha()));
+		// research.setAtivo(true);
+		// dao.persist(research);
+		//
+		// telephone.setPesquisador(research);
+		// dao4.persist(telephone);
+		//
+		// com.sigfap.admin.json.research.Result result = new
+		// com.sigfap.admin.json.research.Result();
+		//
+		// result.getValue().add(research);
+		//
+		// result1.use(Results.json()).from(result).recursive().serialize();
+		//
+		// } catch (Exception e) {
+		// com.sigfap.admin.json.research.Error error = new
+		// com.sigfap.admin.json.research.Error(
+		// "Impossível cadastrar pesquisador.");
+		// result1.use(Results.json()).from(error).serialize();
+		// result1.include(error);
+		// }
+		//
 	}
 
 	@Public
@@ -166,43 +149,21 @@ public class ResearchController {
 	@Public
 	@Delete("/v1/researcher/{id}")
 	public void removerPesquisador(int id) {
-		 Research research = dao.findById(id);
-		 try {
-		 dao.deleteById(id);
-		 com.sigfap.admin.json.research.Result result = new
-		 com.sigfap.admin.json.research.Result();
-		 
-		 result.getValue().add(research);
-		
-		 result1.use(Results.json()).from(result).recursive().serialize();
-		 result1.include(result);
-		 } catch (Exception e) {
-		 com.sigfap.admin.json.research.Error error = new
-		 com.sigfap.admin.json.research.Error("Pesquisador não encontrado.");
-		 
-		 result1.use(Results.json()).from(error).serialize();
-		 result1.include(error);
-		 }
-=======
-	@Public
-	@Delete("/v1/researcher/{id}")
-	public void removerPesquisador(int id) {
-		// Research research = dao.findById(id);
-		// try {
-		// dao.deleteById(id);
-		// com.sigfap.admin.json.research.Result result = new
-		// com.sigfap.admin.json.research.Result();
-		// result.getPesquisadores().add(research);
-		//
-		// result1.use(Results.json()).from(result).recursive().serialize();
-		// result1.include(result);
-		// } catch (Exception e) {
-		// com.sigfap.admin.json.research.Error error = new
-		// com.sigfap.admin.json.research.Error("Pesquisador não encontrado.");
-		// result1.use(Results.json()).from(error).serialize();
-		// result1.include(error);
-		// }
->>>>>>> c8b002fb1eef16bf99f6233222834731a37105d2
-	}
+		Research research = dao.findById(id);
+		try {
+			dao.deleteById(id);
+			com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
 
+			result.getValue().add(research);
+
+			result1.use(Results.json()).from(result).recursive().serialize();
+			result1.include(result);
+		} catch (Exception e) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Pesquisador não encontrado.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		}
+	}
 }

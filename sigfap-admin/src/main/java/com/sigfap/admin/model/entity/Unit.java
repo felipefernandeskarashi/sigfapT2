@@ -215,6 +215,14 @@ public class Unit implements Serializable{
 		this.representanteUnidades = representanteUnidades;
 	}
 	
+	public void setRepresentante(Representative representaive){
+		this.representanteUnidades.add(representaive);
+	}
+	
+	public Representative getRepresentante(){
+		return this.representanteUnidades.get(0);
+	}
+	
 	
 	
 }

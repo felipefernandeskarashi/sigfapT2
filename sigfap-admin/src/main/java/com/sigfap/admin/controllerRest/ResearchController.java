@@ -87,8 +87,8 @@ public class ResearchController {
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
 		try {
-//			dao1.persist(address);
-//			dao1.persist(address2);
+			dao1.persist(address);
+			dao1.persist(address2);
 
 			com.sigfap.admin.json.address.Result resultAddress = new com.sigfap.admin.json.address.Result();
 
@@ -109,24 +109,31 @@ public class ResearchController {
 		research.setArea(dao3.findById(areaId));
 
 		try {
-			research.setSenha(DigestUtils.shaHex(research.getSenha()));
-			research.setAtivo(true);
-			dao.persist(research);
+			if ((research.getNome() == null) || (research.getEmail() == null)
+					|| (research.getSenha() == null)) {
+				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+						"O campo precisa ser preenchido.");
+				result1.use(Results.json()).from(error).serialize();
+				result1.include(error);
+			} else {
+				research.setSenha(DigestUtils.shaHex(research.getSenha()));
+				research.setAtivo(true);
+				dao.persist(research);
 
-			telephone.setPesquisador(research);
-			dao4.persist(telephone);
-			
-			com.sigfap.admin.json.research.Result resultTelephone = new com.sigfap.admin.json.research.Result();
+				telephone.setPesquisador(research);
+				dao4.persist(telephone);
 
-			resultTelephone.getValue().add(research);
+				com.sigfap.admin.json.telephone.Result resultTelephone = new com.sigfap.admin.json.telephone.Result();
 
+				resultTelephone.getValue().add(telephone);
 
-			com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
+				com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
 
-			result.getValue().add(research);
+				result.getValue().add(research);
 
-			result1.use(Results.json()).from(result).recursive().serialize();
-
+				result1.use(Results.json()).from(result).recursive()
+						.serialize();
+			}
 		} catch (Exception e) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"Impossível cadastrar pesquisador.");
@@ -141,26 +148,35 @@ public class ResearchController {
 	public void editarPesquisador(Research research, Address address,
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
-			try {
-				dao1.update(address);
-				dao1.update(address2);
-				
+		try {
+			dao1.update(address);
+			dao1.update(address2);
+
+			if ((research.getNome() == null) || (research.getEmail() == null)
+					|| (research.getSenha() == null)) {
+				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+						"O campo precisa ser preenchido.");
+				result1.use(Results.json()).from(error).serialize();
+				result1.include(error);
+			} else {
 				research.setSenha(DigestUtils.shaHex(research.getSenha()));
 				dao.update(research);
-				
+
 				com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
 
 				result.getValue().add(research);
 
-				result1.use(Results.json()).from(result).recursive().serialize();
+				result1.use(Results.json()).from(result).recursive()
+						.serialize();
 				result1.include(result);
-			} catch (Exception e) {
-				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-						"Impossível editar pesquisador.");
-
-				result1.use(Results.json()).from(error).serialize();
-				result1.include(error);
 			}
+		} catch (Exception e) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Impossível editar pesquisador.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		}
 	}
 
 	@Public

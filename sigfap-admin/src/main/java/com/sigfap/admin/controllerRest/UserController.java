@@ -66,42 +66,78 @@ public class UserController {
 	@Post
 	@Path("/v1/user")
 	public void inserirUsuario(User user) {
-		user.setLogin(user.getLogin());
-		user.setSenha(DigestUtils.shaHex(user.getSenha()));
-		try {
-			dao.persist(user);
-			com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
-			
-			result.getValue().add(user);
-
-			result1.use(Results.json()).from(result).recursive().serialize();
-			result1.include(result);
-		} catch (Exception e) {
+		if (user.getLogin() == null && user.getSenha() == null) {
 			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
-					"Impossivel criar usuário.");
+					"Informe o e-mail e senha.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
+		} else if (user.getLogin() == null) {
+			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+					"O e-mail (login) precisa ser preenchido.");
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if (user.getSenha() == null) {
+			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+					"A senha precisa ser preenchida.");
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else {
+			user.setLogin(user.getLogin());
+			user.setSenha(DigestUtils.shaHex(user.getSenha()));
+			try {
+				dao.persist(user);
+				com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
+
+				result.getValue().add(user);
+
+				result1.use(Results.json()).from(result).recursive()
+						.serialize();
+				result1.include(result);
+			} catch (Exception e) {
+				com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+						"Impossivel criar usuário.");
+				result1.use(Results.json()).from(error).serialize();
+				result1.include(error);
+			}
 		}
 	}
 
 	@Public
 	@Put("/v1/user")
 	public void editarUsuario(User user) {
-		user.setLogin(user.getLogin());
-		user.setSenha(DigestUtils.shaHex(user.getSenha()));
-
-		try {
-			dao.update(user);
-			com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
-			
-			result.getValue().add(user);
-
-			result1.use(Results.json()).from(result).recursive().serialize();
-			result1.include(result);
-		} catch (Exception e) {
+		if (user.getLogin() == null && user.getSenha() == null) {
 			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
-					"Impossivel editar usuário.");
+					"Informe o e-mail e senha.");
 			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if (user.getLogin() == null) {
+			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+					"O e-mail (login) precisa ser preenchido.");
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if (user.getSenha() == null) {
+			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+					"A senha precisa ser preenchida.");
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else {
+
+			user.setSenha(DigestUtils.shaHex(user.getSenha()));
+
+			try {
+				dao.update(user);
+				com.sigfap.admin.json.user.Result result = new com.sigfap.admin.json.user.Result();
+
+				result.getValue().add(user);
+
+				result1.use(Results.json()).from(result).recursive()
+						.serialize();
+				result1.include(result);
+			} catch (Exception e) {
+				com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+						"Impossivel editar usuário.");
+				result1.use(Results.json()).from(error).serialize();
+			}
 		}
 	}
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.JDBCConnectionException;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
@@ -76,7 +76,7 @@ public class FieldResearchController {
 
 				result1.use(Results.json()).from(error).serialize();
 				result1.include(error);
-
+				return;
 			} else {
 				dao.persist(skill);
 				com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
@@ -87,7 +87,13 @@ public class FieldResearchController {
 						.exclude("value.pesquisadores").recursive().serialize();
 				result1.include(result);
 			}
-		} catch (ConstraintViolationException e) {
+		} catch(JDBCConnectionException e){
+			
+			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error("Problema de conexão com o banco.");
+			result1.use(Results.json()).from(error).recursive().serialize();
+			
+		}
+		catch (Exception e) {
 			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
 					"Erro ao cadastrar área de conhecimento.");
 
@@ -107,7 +113,7 @@ public class FieldResearchController {
 
 				result1.use(Results.json()).from(error).serialize();
 				result1.include(error);
-
+				return;
 			} else {
 				dao.update(skill);
 				com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
@@ -118,6 +124,12 @@ public class FieldResearchController {
 						.exclude("value.pesquisadores").recursive().serialize();
 				result1.include(result);
 			}
+		} catch (JDBCConnectionException e) {
+
+			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
+					"Problema de conexão com o banco.");
+			result1.use(Results.json()).from(error).recursive().serialize();
+
 		} catch (Exception e) {
 			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
 					"Impossivel editar área de conhecimento.");
@@ -138,7 +150,13 @@ public class FieldResearchController {
 			result1.use(Results.json()).from(result)
 					.exclude("value.pesquisadores").recursive().serialize();
 			result1.include(result);
-		} catch (Exception e) {
+		} catch(JDBCConnectionException e){
+			
+			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error("Problema de conexão com o banco.");
+			result1.use(Results.json()).from(error).recursive().serialize();
+			
+		}
+		catch (Exception e) {
 			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
 					"Área não encontrada.");
 			result1.use(Results.json()).from(error).serialize();

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.hibernate.exception.JDBCConnectionException;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
@@ -71,16 +72,19 @@ public class UserController {
 					"Informe o e-mail e senha.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
+			return;
 		} else if (user.getLogin() == null) {
 			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
 					"O e-mail (login) precisa ser preenchido.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
+			return;
 		} else if (user.getSenha() == null) {
 			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
 					"A senha precisa ser preenchida.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
+			return;
 		} else {
 			user.setLogin(user.getLogin());
 			user.setSenha(DigestUtils.shaHex(user.getSenha()));
@@ -93,6 +97,10 @@ public class UserController {
 				result1.use(Results.json()).from(result).recursive()
 						.serialize();
 				result1.include(result);
+			} catch (JDBCConnectionException e) {
+				com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
+						"Problema de conexão com o banco.");
+				result1.use(Results.json()).from(error).recursive().serialize();
 			} catch (Exception e) {
 				com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
 						"Impossivel criar usuário.");
@@ -110,16 +118,19 @@ public class UserController {
 					"Informe o e-mail e senha.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
+			return;
 		} else if (user.getLogin() == null) {
 			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
 					"O e-mail (login) precisa ser preenchido.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
+			return;
 		} else if (user.getSenha() == null) {
 			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
 					"A senha precisa ser preenchida.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
+			return;
 		} else {
 
 			user.setSenha(DigestUtils.shaHex(user.getSenha()));
@@ -133,7 +144,11 @@ public class UserController {
 				result1.use(Results.json()).from(result).recursive()
 						.serialize();
 				result1.include(result);
-			} catch (Exception e) {
+			} catch(JDBCConnectionException e){
+				com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error("Problema de conexão com o banco.");
+				result1.use(Results.json()).from(error).recursive().serialize();
+			}
+			catch (Exception e) {
 				com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
 						"Impossivel editar usuário.");
 				result1.use(Results.json()).from(error).serialize();
@@ -153,7 +168,11 @@ public class UserController {
 
 			result1.use(Results.json()).from(result).recursive().serialize();
 			result1.include(result);
-		} catch (Exception e) {
+		} catch(JDBCConnectionException e){
+			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error("Problema de conexão com o banco.");
+			result1.use(Results.json()).from(error).recursive().serialize();
+		}
+		catch (Exception e) {
 			com.sigfap.admin.json.user.Error error = new com.sigfap.admin.json.user.Error(
 					"Usuário não encontrado.");
 			result1.use(Results.json()).from(error).serialize();

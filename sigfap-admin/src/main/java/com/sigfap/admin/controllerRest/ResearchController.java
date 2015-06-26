@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.hibernate.exception.JDBCConnectionException;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
@@ -69,6 +70,9 @@ public class ResearchController {
 			result.setValue(researches);
 
 			result1.use(Results.json()).from(result).include("value")
+					.include("value.enderecoRes").include("value.enderecoCom")
+					.include("value.etniaPes").include("value.area")
+					.include("value.telefones")
 					.exclude("value.pesquisadorUnidades").serialize();
 			result1.include("pesquisadores", result);
 		} else {
@@ -86,36 +90,60 @@ public class ResearchController {
 	public void inserirPesquisador(Research research, Address address,
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
-		try {
-			dao1.persist(address);
-			dao1.persist(address2);
-
-			com.sigfap.admin.json.address.Result resultAddress = new com.sigfap.admin.json.address.Result();
-
-			resultAddress.getValue().add(address);
-			resultAddress.getValue().add(address2);
-
-		} catch (Exception e) {
+		if (research.getNome() == null || research.getCpf() == null
+				|| research.getRg() == null
+				|| research.getRgDataEmissor() == null
+				|| research.getRgEmissor() == null
+				|| research.getRgEstadoEmissor() == null
+				|| research.getNascimento() == null
+				|| research.getSexo() == null || research.getMae() == null
+				|| research.getPai() == null
+				|| research.getEscolaridade() == null
+				|| research.getModalidadeBolsa() == null
+				|| research.getObjConcessao() == null
+				|| research.getEmail() == null || research.getSenha() == null
+				|| telephone.getNumero() == null || areaId == null
+				|| etniaId == null || address.getRua() == null
+				|| address.getNumero() == null || address.getBairro() == null
+				|| address.getCidade() == null || address.getCepZip() == null
+				|| address2.getRua() == null || address2.getNumero() == null
+				|| address2.getBairro() == null || address2.getCidade() == null
+				|| address2.getCepZip() == null) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-					"Impossível cadastrar endereço de pesquisador.");
+					"Os campos obrigatórios precisam ser preenchidos.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-		}
+			return;
+		} else {
+			try {
+				dao1.persist(address);
+				dao1.persist(address2);
 
-		research.setEnderecoRes(address);
-		research.setEnderecoCom(address2);
+				com.sigfap.admin.json.address.Result resultAddress = new com.sigfap.admin.json.address.Result();
 
-		research.setEtniaPes(dao2.findById(etniaId));
-		research.setArea(dao3.findById(areaId));
+				resultAddress.getValue().add(address);
+				resultAddress.getValue().add(address2);
 
-		try {
-			if ((research.getNome() == null) || (research.getEmail() == null)
-					|| (research.getSenha() == null)) {
+			} catch (JDBCConnectionException e) {
+
 				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-						"O campo precisa ser preenchido.");
+						"Problema de conexão com o banco.");
+				result1.use(Results.json()).from(error).recursive().serialize();
+
+			} catch (Exception e) {
+				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+						"Impossível cadastrar endereço de pesquisador.");
 				result1.use(Results.json()).from(error).serialize();
 				result1.include(error);
-			} else {
+			}
+
+			research.setEnderecoRes(address);
+			research.setEnderecoCom(address2);
+
+			research.setEtniaPes(dao2.findById(etniaId));
+			research.setArea(dao3.findById(areaId));
+
+			try {
 				research.setSenha(DigestUtils.shaHex(research.getSenha()));
 				research.setAtivo(true);
 				dao.persist(research);
@@ -133,14 +161,21 @@ public class ResearchController {
 
 				result1.use(Results.json()).from(result).recursive()
 						.serialize();
-			}
-		} catch (Exception e) {
-			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-					"Impossível cadastrar pesquisador.");
-			result1.use(Results.json()).from(error).serialize();
-			result1.include(error);
-		}
 
+			} catch (JDBCConnectionException e) {
+
+				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+						"Problema de conexão com o banco.");
+				result1.use(Results.json()).from(error).recursive().serialize();
+
+			} catch (Exception e) {
+				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+						"Impossível cadastrar pesquisador.");
+				result1.use(Results.json()).from(error).serialize();
+				result1.include(error);
+			}
+
+		}
 	}
 
 	@Public
@@ -148,34 +183,68 @@ public class ResearchController {
 	public void editarPesquisador(Research research, Address address,
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
-		try {
-			dao1.update(address);
-			dao1.update(address2);
-
-			if ((research.getNome() == null) || (research.getEmail() == null)
-					|| (research.getSenha() == null)) {
-				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-						"O campo precisa ser preenchido.");
-				result1.use(Results.json()).from(error).serialize();
-				result1.include(error);
-			} else {
-				research.setSenha(DigestUtils.shaHex(research.getSenha()));
-				dao.update(research);
-
-				com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
-
-				result.getValue().add(research);
-
-				result1.use(Results.json()).from(result).recursive()
-						.serialize();
-				result1.include(result);
-			}
-		} catch (Exception e) {
+		if (research.getNome() == null || research.getCpf() == null
+				|| research.getRg() == null
+				|| research.getRgDataEmissor() == null
+				|| research.getRgEmissor() == null
+				|| research.getRgEstadoEmissor() == null
+				|| research.getNascimento() == null
+				|| research.getSexo() == null || research.getMae() == null
+				|| research.getPai() == null
+				|| research.getEscolaridade() == null
+				|| research.getModalidadeBolsa() == null
+				|| research.getObjConcessao() == null
+				|| research.getEmail() == null || research.getSenha() == null
+				|| telephone.getNumero() == null || areaId == null
+				|| etniaId == null || address.getRua() == null
+				|| address.getNumero() == null || address.getBairro() == null
+				|| address.getCidade() == null || address.getCepZip() == null
+				|| address2.getRua() == null || address2.getNumero() == null
+				|| address2.getBairro() == null || address2.getCidade() == null
+				|| address2.getCepZip() == null) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-					"Impossível editar pesquisador.");
-
+					"Os campos obrigatórios precisam ser preenchidos.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
+			return;
+		} else {
+			try {
+				dao1.update(address);
+				dao1.update(address2);
+
+				if ((research.getNome() == null)
+						|| (research.getEmail() == null)
+						|| (research.getSenha() == null)) {
+					com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+							"O campo precisa ser preenchido.");
+					result1.use(Results.json()).from(error).serialize();
+					result1.include(error);
+					return;
+				} else {
+					research.setSenha(DigestUtils.shaHex(research.getSenha()));
+					dao.update(research);
+
+					com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
+
+					result.getValue().add(research);
+
+					result1.use(Results.json()).from(result).recursive()
+							.serialize();
+					result1.include(result);
+				}
+			} catch (JDBCConnectionException e) {
+
+				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+						"Problema de conexão com o banco.");
+				result1.use(Results.json()).from(error).recursive().serialize();
+
+			} catch (Exception e) {
+				com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+						"Impossível editar pesquisador.");
+
+				result1.use(Results.json()).from(error).serialize();
+				result1.include(error);
+			}
 		}
 	}
 
@@ -191,6 +260,12 @@ public class ResearchController {
 
 			result1.use(Results.json()).from(result).recursive().serialize();
 			result1.include(result);
+		} catch (JDBCConnectionException e) {
+
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Problema de conexão com o banco.");
+			result1.use(Results.json()).from(error).recursive().serialize();
+
 		} catch (Exception e) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"Pesquisador não encontrado.");

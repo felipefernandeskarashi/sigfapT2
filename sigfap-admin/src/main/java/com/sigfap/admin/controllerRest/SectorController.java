@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.JDBCConnectionException;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
@@ -49,13 +50,20 @@ public class SectorController {
 	@Public
 	@Get("/v1/sectors")
 	public void listar(){
-		List<Sector> temp = dao.findAll();
-		com.sigfap.admin.json.sector.Result result = 
-				new com.sigfap.admin.json.sector.Result();
-		result.setSetores(temp);
-		result1.use(Results.json()).from(result).recursive()
-			.exclude("setores.unidade").serialize();
-		result1.include("setores", result);
+		try{
+			List<Sector> temp = dao.findAll();
+			com.sigfap.admin.json.sector.Result result = 
+					new com.sigfap.admin.json.sector.Result();
+			result.setSetores(temp);
+			result1.use(Results.json()).from(result).recursive()
+				.exclude("setores.unidade").serialize();
+			result1.include("setores", result);
+		}catch(JDBCConnectionException e){
+			com.sigfap.admin.json.sector.Error error = 
+					new com.sigfap.admin.json.sector.Error(
+							"Problema de conexão com o banco, tente mais tarde");
+			result1.use(Results.json()).from(error).recursive().serialize();
+		}
 	}
 	
 	@Public 
@@ -103,13 +111,19 @@ public class SectorController {
 					new com.sigfap.admin.json.sector.Error("Objeto não encontrado");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-			System.out.println(id);
 		}
 	}
 	
 	@Public
 	@Put("/v1/sector/{id}")
 	public void atualizar(int id, Sector sector){
+		String teste = sector.getNome();
+		if(teste == null){
+			com.sigfap.admin.json.sector.Error error=
+					new com.sigfap.admin.json.sector.Error("Informe um nome");
+			result1.use(Results.json()).from(error).recursive().serialize();
+			return;
+		}
 		sector.setId(id);
 		try{
 			int idUn = sector.getUnidade().getId();

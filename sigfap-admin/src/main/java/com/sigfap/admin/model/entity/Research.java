@@ -22,10 +22,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.sigfap.admin.validation.CheckCpf;
+
 
 @Entity
 @Table(name="pesquisador")
-public class Research implements Serializable{
+public class Research extends CheckCpf implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	

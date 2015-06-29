@@ -24,11 +24,14 @@ import com.sigfap.admin.model.entity.Address;
 import com.sigfap.admin.model.entity.Research;
 import com.sigfap.admin.model.entity.Telephone;
 import com.sigfap.admin.security.intercept.annotation.Public;
+import com.sigfap.admin.validation.CheckCpf;
 
 @Controller
 public class ResearchController {
 
 	private final Result result1;
+
+	private CheckCpf verificador;
 
 	@Inject
 	private ResearchDAO dao;
@@ -90,6 +93,7 @@ public class ResearchController {
 	public void inserirPesquisador(Research research, Address address,
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
+
 		if (research.getNome() == null || research.getCpf() == null
 				|| research.getRg() == null
 				|| research.getRgDataEmissor() == null
@@ -110,7 +114,13 @@ public class ResearchController {
 				|| address2.getBairro() == null || address2.getCidade() == null
 				|| address2.getCepZip() == null) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-					"Os campos obrigatórios precisam ser preenchidos.");
+					"Os campos obrigatórios precisam serem preenchidos.");
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+			return;
+		} else if (verificador.verificaCpf(research.getCpf()) == false) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"CPF inválido.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
 			return;
@@ -204,6 +214,12 @@ public class ResearchController {
 				|| address2.getCepZip() == null) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"Os campos obrigatórios precisam ser preenchidos.");
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+			return;
+		} else if (verificador.verificaCpf(research.getCpf()) == false) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"CPF inválido.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
 			return;

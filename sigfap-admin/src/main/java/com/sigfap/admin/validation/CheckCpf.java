@@ -12,9 +12,11 @@ public class CheckCpf {
 	private boolean verifica(String cpf) {
 		
 		String valor = cpf;
-		int i = 10, cont = 0; // i usado para a multiplicação de 10 até 2 para os 9 elementos do cpf
+		int i = 10; // i usado para a multiplicação de 10 até 2 para os 9 elementos do cpf
+		int cont = 0; 
 		int multi = 0; // Guarda a multiplicação dos 9 primeiros elementos do cpf
-		int resto, sub;
+		int resto;
+		int sub;
 		int firstNumber = Integer.parseInt(valor.substring(cont, cont+1)); // cont = 0 vai até 1 para pegar o primeiro valor do cpf
 		int valorDeVerificacao = 0;
 			if (Integer.parseInt(valor.substring(9,10)) == 0)

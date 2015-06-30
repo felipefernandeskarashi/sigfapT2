@@ -94,36 +94,56 @@ public class ResearchController {
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
 
-		if (research.getNome() == null || research.getCpf() == null
-				|| research.getRg() == null
-				|| research.getRgDataEmissor() == null
-				|| research.getRgEmissor() == null
-				|| research.getRgEstadoEmissor() == null
-				|| research.getNascimento() == null
-				|| research.getSexo() == null || research.getMae() == null
-				|| research.getPai() == null
-				|| research.getEscolaridade() == null
-				|| research.getModalidadeBolsa() == null
-				|| research.getObjConcessao() == null
-				|| research.getEmail() == null || research.getSenha() == null
-				|| telephone.getNumero() == null || areaId == null
-				|| etniaId == null || address.getRua() == null
-				|| address.getNumero() == null || address.getBairro() == null
-				|| address.getCidade() == null || address.getCepZip() == null
-				|| address2.getRua() == null || address2.getNumero() == null
-				|| address2.getBairro() == null || address2.getCidade() == null
-				|| address2.getCepZip() == null) {
+		if ((research.getEmail() == null) || (research.getSenha() == null)) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-					"Os campos obrigatórios precisam serem preenchidos.");
+					"Preencher as informações de login.");
+
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-			return;
+		} else if ((research.getNome() == null) || (research.getCpf() == null)
+				|| (research.getRg() == null)
+				|| (research.getRgEmissor() == null)
+				|| (research.getRgDataEmissor() == null)
+				|| (research.getMae() == null) || (research.getPai() == null)
+				|| (research.getNascimento() == null)
+				|| (research.getSexo() == null)) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Preencher as informações de dados cadastrais.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((research.getEscolaridade() == null)
+				|| (research.getModalidadeBolsa() == null)
+				|| (research.getObjConcessao() == null)) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Preencher as informações de dados escolares.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((etniaId == null) || (areaId == null)
+				|| (telephone.getNumero() == null)) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Preencher as informações adicionais de etnia, área de conhecimento ou telefone.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((address.getRua() == null) || (address.getNumero() == null)
+				|| (address.getBairro() == null)
+				|| (address.getCepZip() == null) || (address2.getRua() == null)
+				|| (address2.getNumero() == null)
+				|| (address2.getBairro() == null)
+				|| (address2.getCepZip() == null)) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Preencher as informações de endereços.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
 		} else if (verificador.verificaCpf(research.getCpf()) == false) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"CPF inválido.");
+
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-			return;
 		} else {
 			try {
 				dao1.persist(address);
@@ -184,8 +204,8 @@ public class ResearchController {
 				result1.use(Results.json()).from(error).serialize();
 				result1.include(error);
 			}
-
 		}
+
 	}
 
 	@Public
@@ -193,37 +213,58 @@ public class ResearchController {
 	public void editarPesquisador(Research research, Address address,
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
-		if (research.getNome() == null || research.getCpf() == null
-				|| research.getRg() == null
-				|| research.getRgDataEmissor() == null
-				|| research.getRgEmissor() == null
-				|| research.getRgEstadoEmissor() == null
-				|| research.getNascimento() == null
-				|| research.getSexo() == null || research.getMae() == null
-				|| research.getPai() == null
-				|| research.getEscolaridade() == null
-				|| research.getModalidadeBolsa() == null
-				|| research.getObjConcessao() == null
-				|| research.getEmail() == null || research.getSenha() == null
-				|| telephone.getNumero() == null || areaId == null
-				|| etniaId == null || address.getRua() == null
-				|| address.getNumero() == null || address.getBairro() == null
-				|| address.getCidade() == null || address.getCepZip() == null
-				|| address2.getRua() == null || address2.getNumero() == null
-				|| address2.getBairro() == null || address2.getCidade() == null
-				|| address2.getCepZip() == null) {
+
+		if ((research.getEmail() == null) || (research.getSenha() == null)) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
-					"Os campos obrigatórios precisam ser preenchidos.");
+					"Preencher as informações de login.");
+
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-			return;
-		} else if (verificador.verificaCpf(research.getCpf()) == false) {
+		} else if ((research.getNome() == null) || (research.getCpf() == null)
+				|| (research.getRg() == null)
+				|| (research.getRgEmissor() == null)
+				|| (research.getRgDataEmissor() == null)
+				|| (research.getMae() == null) || (research.getPai() == null)
+				|| (research.getNascimento() == null)
+				|| (research.getSexo() == null)) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Preencher as informações de dados cadastrais.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((research.getEscolaridade() == null)
+				|| (research.getModalidadeBolsa() == null)
+				|| (research.getObjConcessao() == null)) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Preencher as informações de dados escolares.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((etniaId == null) || (areaId == null)
+				|| (telephone.getNumero() == null)) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Preencher as informações adicionais de etnia, área de conhecimento ou telefone.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((address.getRua() == null) || (address.getNumero() == null)
+				|| (address.getBairro() == null)
+				|| (address.getCepZip() == null) || (address2.getRua() == null)
+				|| (address2.getNumero() == null)
+				|| (address2.getBairro() == null)
+				|| (address2.getCepZip() == null)) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Preencher as informações de endereços.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} /*else if (verificador.verificaCpf(research.getCpf()) == false) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"CPF inválido.");
+
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-			return;
-		} else {
+		}*/ else {
 			try {
 				dao1.update(address);
 				dao1.update(address2);

@@ -25,13 +25,26 @@ import com.sigfap.admin.model.entity.Research;
 import com.sigfap.admin.model.entity.Telephone;
 import com.sigfap.admin.security.intercept.annotation.Public;
 import com.sigfap.admin.validation.CheckCpf;
+import com.sigfap.admin.validation.CheckEmail;
+import com.sigfap.admin.validation.CheckRg;
+import com.sigfap.admin.validation.CheckTelefone;
 
 @Controller
 public class ResearchController {
 
 	private final Result result1;
 
-	private CheckCpf verificador;
+	@Inject
+	private CheckCpf verificadorCpf;
+
+	@Inject
+	private CheckRg verificadorRg;
+
+	@Inject
+	private CheckEmail verificadorEmail;
+
+	@Inject
+	private CheckTelefone verificadorTelefone;
 
 	@Inject
 	private ResearchDAO dao;
@@ -94,6 +107,11 @@ public class ResearchController {
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
 
+		String validaCpf = research.getCpf();
+		String validaRg = research.getRg();
+		String validaTelefone = telephone.getNumero();
+		String validaEmail = research.getEmail();
+
 		if ((research.getEmail() == null) || (research.getSenha() == null)) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"Preencher as informações de login.");
@@ -138,9 +156,27 @@ public class ResearchController {
 
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-		} else if (verificador.verificaCpf(research.getCpf()) == false) {
+		} else if ((verificadorCpf.isCpf(validaCpf)) == false) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"CPF inválido.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((verificadorRg.isRg(validaRg)) == false) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"RG inválido.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((verificadorEmail.isEmail(validaEmail)) == false) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"E-mail inválido.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((verificadorTelefone.isTelefone(validaTelefone)) == false) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Telefone inválido.");
 
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
@@ -214,6 +250,11 @@ public class ResearchController {
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
 
+		String validaCpf = research.getCpf();
+		String validaRg = research.getRg();
+		String validaTelefone = telephone.getNumero();
+		String validaEmail = research.getEmail();
+
 		if ((research.getEmail() == null) || (research.getSenha() == null)) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"Preencher as informações de login.");
@@ -258,13 +299,31 @@ public class ResearchController {
 
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-		} /*else if (verificador.verificaCpf(research.getCpf()) == false) {
+		} else if ((verificadorCpf.isCpf(validaCpf)) == false) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
 					"CPF inválido.");
 
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
-		}*/ else {
+		} else if ((verificadorRg.isRg(validaRg)) == false) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"RG inválido.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((verificadorEmail.isEmail(validaEmail)) == false) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"E-mail inválido.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else if ((verificadorTelefone.isTelefone(validaTelefone)) == false) {
+			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
+					"Telefone inválido.");
+
+			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
+		} else {
 			try {
 				dao1.update(address);
 				dao1.update(address2);

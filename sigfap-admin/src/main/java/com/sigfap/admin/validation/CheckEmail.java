@@ -12,6 +12,7 @@ public class CheckEmail {
 
 	/**
 	 * Obs.: Retirado do site http://www.guj.com.br/8002-validacao-de-email
+	 * Exemplo: nome@dominio.com
 	 * @param email
 	 * @return boolean
 	 */

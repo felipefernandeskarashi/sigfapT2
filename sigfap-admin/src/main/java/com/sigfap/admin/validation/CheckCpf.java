@@ -8,6 +8,7 @@ public class CheckCpf {
 	}
 
 	/**
+	 * Obs.: Somente CPF com numeros: 12345678911
 	 * @author Código retirado do site http://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
 	 * @param CPF
 	 * @return boolean

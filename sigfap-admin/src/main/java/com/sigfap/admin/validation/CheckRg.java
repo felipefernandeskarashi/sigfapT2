@@ -5,6 +5,12 @@ public class CheckRg {
 
 	}
 
+	/**
+	 * Obs.: Somente números: 123456789
+	 * @author Thalita
+	 * @param RG
+	 * @return boolean
+	 */
 	public boolean isRg(String RG) {
 		// considera-se erro RG's formados por uma sequencia de numeros iguais
 		if ((RG.equals("000000000") || RG.equals("111111111")

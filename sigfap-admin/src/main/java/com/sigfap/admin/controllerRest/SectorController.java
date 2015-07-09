@@ -106,9 +106,14 @@ public class SectorController {
 			result.getSetores().add(temp);
 			result1.use(Results.json()).from(result).include("setores").serialize();
 			result1.include(result);
+		}catch(JDBCConnectionException j){
+			com.sigfap.admin.json.sector.Error error = 
+					new com.sigfap.admin.json.sector.Error("Impossível acessar banco de dados, tente mais tarde");
+			result1.use(Results.json()).from(error).recursive().serialize();
+			result1.include(error);
 		}catch(Exception e){
 			com.sigfap.admin.json.sector.Error error = 
-					new com.sigfap.admin.json.sector.Error("Objeto não encontrado");
+					new com.sigfap.admin.json.sector.Error("Setor não encontrado");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
 		}

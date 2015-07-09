@@ -14,12 +14,13 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 
+import com.sigfap.admin.json.representative.Error;
 import com.sigfap.admin.model.dao.AddressDAO;
 import com.sigfap.admin.model.dao.RepresentativeDAO;
-import com.sigfap.admin.model.dao.UnitDAO;
 import com.sigfap.admin.model.entity.Address;
 import com.sigfap.admin.model.entity.Representative;
 import com.sigfap.admin.security.intercept.annotation.Public;
+import com.sigfap.admin.validation.CheckCpf;
 
 @Controller
 public class RepresentativeController {
@@ -32,6 +33,8 @@ public class RepresentativeController {
 	@Inject
 	private AddressDAO dao2;
 	
+	@Inject
+	private CheckCpf cpfValidation;
 	
 	
 	/**
@@ -106,6 +109,13 @@ public class RepresentativeController {
 		if(teste == null){
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error("Informe um CPF");
+			result1.use(Results.json()).from(error).recursive().serialize();
+			return;
+		}
+		
+		if(!cpfValidation.isCpf(representative.getCpf())){
+			com.sigfap.admin.json.representative.Error error =
+					new com.sigfap.admin.json.representative.Error("Informe um CPF válido");
 			result1.use(Results.json()).from(error).recursive().serialize();
 			return;
 		}

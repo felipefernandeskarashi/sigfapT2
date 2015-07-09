@@ -19,6 +19,7 @@ import com.sigfap.admin.model.dao.InstitutionDAO;
 import com.sigfap.admin.model.dao.RepresentativeDAO;
 import com.sigfap.admin.model.dao.UnitDAO;
 import com.sigfap.admin.model.entity.Address;
+import com.sigfap.admin.model.entity.Representative;
 import com.sigfap.admin.model.entity.Unit;
 import com.sigfap.admin.security.intercept.annotation.Public;
 
@@ -67,7 +68,7 @@ public class UnitController {
 	
 	@Public
 	@Post("/v1/unit")
-	public void inserirUnidade(Unit unit, Address address){
+	public void inserirUnidade(int idRepresentante, Unit unit, Address address){
 		String teste = unit.getNome();
 		if(teste == null){
 			com.sigfap.admin.json.unit.Error error = 
@@ -113,13 +114,15 @@ public class UnitController {
 			return;
 		}
 		
-//		try{
-//			unit.setRepresentante(dao4.findById(unit.getRepresentante().getId()));
-//		}catch(Exception e){
-//			com.sigfap.admin.json.unit.Error error =
-//					new com.sigfap.admin.json.unit.Error("Representante não existe");
-//			result1.use(Results.json()).from(error).recursive().serialize();
-//		}
+		try{
+			Representative temp = dao4.findById(idRepresentante);
+			unit.setRepresentante(temp);
+		}catch(Exception e){
+			com.sigfap.admin.json.unit.Error error = 
+					new com.sigfap.admin.json.unit.Error("Representante não encontrado");
+			result1.use(Results.json()).from(error).recursive().serialize();
+			return;
+		}
 		
 		try{
 			dao.persist(unit);

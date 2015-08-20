@@ -144,35 +144,33 @@ public class UnitController {
 	@Public
 	@Put("/v1/unit/{id}")
 	public void editarUnidade(int id, Unit unit){
-		String teste = unit.getNome();
-		if(teste == null){
-			com.sigfap.admin.json.unit.Error error = 
-					new com.sigfap.admin.json.unit.Error(
-							"Informe um nome");
-			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
+		Unit temp = dao.findById(id);
+		if(unit.getNome() != null){
+			temp.setNome(unit.getNome());
 		}
-		teste = null;
-		teste = unit.getEmail();
-		if(teste == null){
-			com.sigfap.admin.json.unit.Error error = 
-					new com.sigfap.admin.json.unit.Error(
-							"Informe um email");
-			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
+		if(unit.getEmail() != null){
+			temp.setEmail(unit.getEmail());
 		}
-		teste = null;
-		teste = unit.getCnpj();
-		if(teste == null){
-			com.sigfap.admin.json.unit.Error error = 
-					new com.sigfap.admin.json.unit.Error(
-							"Informe um CNPJ");
-			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
+		if(unit.getCnpj() != null){
+			temp.setCnpj(unit.getCnpj());
 		}
-		
+		if(unit.getEndereco() != null){
+			temp.setEndereco(unit.getEndereco());
+		}
+		if(unit.getPublicar() != null){
+			temp.setPublicar(unit.getPublicar());
+		}
 		try{
-			dao.update(unit);
+			boolean b = unit.getAtiva();
+			temp.setAtiva(unit.getAtiva());
+		}catch(Exception e){
+			
+		}
+		if(unit.getInstituicao() != null){
+			temp.setInstituicao(unit.getInstituicao());
+		}
+		try{
+			dao.update(temp);
 			com.sigfap.admin.json.unit.Result result = 
 					new com.sigfap.admin.json.unit.Result();
 			result.getUnidades().add(unit);

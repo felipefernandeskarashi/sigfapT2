@@ -102,7 +102,6 @@ public class RepresentativeController {
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error("Informe um nome");
 			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
 		}
 		teste = null;
 		teste = representative.getCpf();
@@ -110,14 +109,12 @@ public class RepresentativeController {
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error("Informe um CPF");
 			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
 		}
 		
 		if(!cpfValidation.isCpf(representative.getCpf())){
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error("Informe um CPF válido");
 			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
 		}
 		try{
 			dao2.persist(address);
@@ -126,11 +123,14 @@ public class RepresentativeController {
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error("Não foi possível salvar endereço");
 			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
 		}
 		
 		try{
 			dao.persist(representative);
+			com.sigfap.admin.json.representative.Result result = 
+					new com.sigfap.admin.json.representative.Result();
+			result.getRepresentantes().add(representative);
+			result1.use(Results.json()).from(result).recursive().serialize();
 		}catch(JDBCConnectionException e){
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error(
@@ -145,25 +145,45 @@ public class RepresentativeController {
 	}
 	
 	@Public
-	@Put("/v1/representative")
-	public void editar(Representative representative){
-		String teste = representative.getNome();
-		if(teste == null){
-			com.sigfap.admin.json.representative.Error error =
-					new com.sigfap.admin.json.representative.Error("Informe um nome");
-			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
+	@Put("/v1/representative/{id}")
+	public void editar(int id, Representative representative){
+		Representative temp = dao.findById(id);
+		if(representative.getNome() != null){
+			temp.setNome(representative.getNome());
 		}
-		teste = null;
-		teste = representative.getCpf();
-		if(teste == null){
-			com.sigfap.admin.json.representative.Error error =
-					new com.sigfap.admin.json.representative.Error("Informe um CPF");
-			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
+		if(representative.getCpf() != null){
+			temp.setCpf(representative.getCpf());
+		}
+		if(representative.getCargo() != null){
+			temp.setCargo(representative.getCargo());
+		}
+		if(representative.getEmail() != null){
+			temp.setEmail(representative.getEmail());
+		}
+		if(representative.getMatricula() != null){
+			temp.setMatricula(representative.getMatricula());
+		}
+		if(representative.getRg() != null){
+			temp.setRg(representative.getRg());
+		}
+		if(representative.getRgDataEmissao() != null){
+			temp.setRgDataEmissao(representative.getRgDataEmissao());
+		}
+		if(representative.getRgEmissao() != null){
+			temp.setRgEmissao(representative.getRgEmissao());
+		}
+		if(representative.getVigenciaInicio() != null){
+			temp.setVigenciaInicio(representative.getVigenciaInicio());
+		}
+		if(representative.getVigenciaTermino() != null){
+			temp.setVigenciaTermino(representative.getVigenciaTermino());
 		}
 		try{
-			dao.update(representative);
+			dao.update(temp);
+			com.sigfap.admin.json.representative.Result result =
+					new com.sigfap.admin.json.representative.Result();
+			result.getRepresentantes().add(temp);
+			result1.use(Results.json()).from(result).include("representantes").serialize();
 		}catch(JDBCConnectionException e){
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error(

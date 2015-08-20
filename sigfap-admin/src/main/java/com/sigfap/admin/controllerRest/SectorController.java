@@ -69,8 +69,7 @@ public class SectorController {
 	@Public 
 	@Post("/v1/sector")
 	public void inserir(Sector sector){
-		String teste = sector.getNome();
-		if(teste == null){
+		if(sector.getNome() == null){
 			com.sigfap.admin.json.unit.Error error = 
 					new com.sigfap.admin.json.unit.Error("Informe um nome");
 			result1.use(Results.json()).from(error).recursive().serialize();
@@ -122,27 +121,36 @@ public class SectorController {
 	@Public
 	@Put("/v1/sector/{id}")
 	public void atualizar(int id, Sector sector){
-		String teste = sector.getNome();
-		if(teste == null){
-			com.sigfap.admin.json.sector.Error error=
-					new com.sigfap.admin.json.sector.Error("Informe um nome");
-			result1.use(Results.json()).from(error).recursive().serialize();
-			return;
+		Sector temp = dao.findById(id);
+		if(sector.getNome() != null){
+			temp.setNome(sector.getNome());
 		}
-		sector.setId(id);
+		if(sector.getDescricao() != null){
+			temp.setDescricao(sector.getDescricao());
+		}
+		if(sector.getUnidade() != null){
+			temp.setUnidade(dao2.findById(sector.getUnidade().getId()));
+			try{
+				int idUn = sector.getUnidade().getId();
+				Unit u = dao2.findById(idUn);
+				temp.setUnidade(sector.getUnidade());
+			}catch(Exception e){
+				com.sigfap.admin.json.sector.Error error =
+						new com.sigfap.admin.json.sector.Error("Unidade não existe");
+				result1.use(Results.json()).from(error).recursive().serialize();
+			}
+		}
 		try{
-			int idUn = sector.getUnidade().getId();
-			Unit u = dao2.findById(idUn);
-			dao.update(sector);
+			
+			dao.update(temp);
 			com.sigfap.admin.json.sector.Result result =
 					new com.sigfap.admin.json.sector.Result();
-			result.getSetores().add(sector);
+			result.getSetores().add(temp);
 			result1.use(Results.json()).from(result).include("setores").serialize();
-		}catch(ObjectNotFoundException e){
+		}catch(Exception e){
 			com.sigfap.admin.json.sector.Error error =
-					new com.sigfap.admin.json.sector.Error("Unidade não existe");
+					new com.sigfap.admin.json.sector.Error("Não foi possível salvar as alterações");
 			result1.use(Results.json()).from(error).recursive().serialize();
-			
 		}
 	}
 

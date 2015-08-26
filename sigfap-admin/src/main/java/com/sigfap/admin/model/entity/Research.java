@@ -24,169 +24,174 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="pesquisador")
-public class Research implements Serializable{
+public class Research implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="pesquisador_id")
 	private Integer id;
-	
+
 	@Column(name="pesquisador_nome")
 	private String nome;
-	
+
 	@Column(name="pesquisador_cpf")
 	private String cpf;
-	
+
 	@Column(name="pesquisador_rg")
 	private String rg;
-	
+
 	@Column(name="pesquisador_rg_emissor")
 	private String rgEmissor;
-	
+
 	@Column(name="pesquisador_rg_data_emissor")
-	//@Temporal(value=TemporalType.DATE)
+//	@Temporal(value=TemporalType.DATE)
 	private String rgDataEmissor;
-	
+
 	@Column(name="pesquisador_rg_estado_emissor")
 	private String rgEstadoEmissor;
-	
+
 	@Column(name="pesquisador_nascimento")
-	//@Temporal(value=TemporalType.DATE)
+//	@Temporal(value=TemporalType.DATE)
 	private String nascimento;
-	
+
 	@Column(name="pesquisador_sexo")
 	private String sexo;
-	
+
 	@Column(name="pesquisador_email")
 	private String email;
-	
+
 	@Column(name="pesquisador_senha")
 	private String senha;
-	
+
 	@Column(name="pesquisador_curriculo")
 	private String curriculo;
-	
+
 	@Column(name="pesquisador_escolaridade")
 	private String escolaridade;
-	
+
 	@Column(name="pesquisador_vinculo_empregaticio")
 	private boolean vinculoEmpregaticio;
-	
+
 	@Column(name="pesquisador_vinculo_institucional")
 	private boolean vinculoInstitucional;
-	
+
 	@Column(name="pesquisador_departamento")
 	private String departamento;
-	
+
 	@Column(name="pesquisador_tempo_servico")
 	private String tempoServico;
-	
+
 	@Column(name="pesquisador_regime")
 	private String regime;
-	
+
 	@Column(name="pesquisador_cargo")
 	private String cargo;
-	
+
 	@Column(name="pesquisador_tempo_cargo")
 	private String tempoCargo;
-	
+
 	@Column(name="pesquisador_endereco_pref")
 	private Integer enderecoPref;
-	
+
 	@Column(name="pesquisador_data_registro")
-	@Temporal(value=TemporalType.DATE)
+	@Temporal(value = TemporalType.DATE)
 	private Date dataRegistro;
-	
+
 	@Column(name="pesquisador_data_atualizacao")
-	@Temporal(value=TemporalType.DATE)
+	@Temporal(value = TemporalType.DATE)
 	private Date dataAtualizacao;
-	
+
 	@Column(name="pesquisador_bloqueado")
 	private boolean bloqueado;
-	
+
 	@Column(name="pesquisador_especial")
 	private boolean especial;
 
 	@Column(name="pesquisador_curso")
 	private String curso;
-	
+
 	@Column(name="pesquisador_tipo")
 	private String tipo;
-	
+
 	@Column(name="pesquisador_passaporte")
 	private String passaporte;
-	
+
 	@Column(name="pesquisador_categoria")
 	private String categoria;
-	
+
 	@Column(name="pesquisador_modalidade_bolsa")
 	private String modalidadeBolsa;
-	
+
 	@Column(name="pesquisador_obj_concessao")
 	private String objConcessao;
-	
+
 	@Column(name="pesquisador_receber_info")
 	private boolean receberInfo;
-	
+
 	@Column(name="pesquisador_reg_nacional_estrangeiro")
 	private String regNacionalEstrangeiro;
-	
+
 	@Column(name="pesquisador_mae")
 	private String mae;
-	
+
 	@Column(name="pesquisador_pai")
 	private String pai;
-	
+
 	@Column(name="pesquisador_url_lattes")
 	private String urlLattes;
-	
+
 	@Column(name="pesquisador_foto_mime")
 	private String fotoMime;
-	
+
 	@Column(name="pesquisador_foto_extensao")
 	private String fotoExtensao;
-	
+
 	@Column(name="pesquisador_disponibilidade_viajar")
 	private boolean dispoViajar;
-	
+
 	@Column(name="pesquisador_ativo")
-	private boolean ativo;	
-	
+	private boolean ativo;
+
 	@Column(name="area_conhecimento_id2")
 	private Integer area2;
-	
+
 	@Column(name="area_conhecimento_id3")
 	private Integer area3;
-	
-	@OneToMany(mappedBy = "pesquisador", cascade = CascadeType.ALL)
+
+	@Column(name="pesquisador_estrangeiro")
+	private boolean estrangeiro;
+
+	@OneToMany(mappedBy="pesquisador", cascade=CascadeType.ALL)
 	private List<Telephone> telefones = new ArrayList<Telephone>();
-	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "pesquisador_unidade", joinColumns =
-    { @JoinColumn(name = "pesquisador_id", nullable = false, updatable = false) }, inverseJoinColumns =
-    { @JoinColumn(name = "unidade_id", nullable = false, updatable = false) })
-    private List<Unit> pesquisadorUnidades = new ArrayList<Unit>();
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "etnia_id", insertable = true, updatable = true, foreignKey = @ForeignKey(name="pesquisador_etnia_id_fkey"))
+
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinTable(name="pesquisador_unidade", joinColumns={ @JoinColumn(name="pesquisador_id", nullable=false, updatable=false) }, inverseJoinColumns={ @JoinColumn(name="unidade_id", nullable=false, updatable=false) })
+	private List<Unit> pesquisadorUnidades = new ArrayList<Unit>();
+
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="etnia_id", insertable=true, updatable=true, foreignKey=@ForeignKey(name="pesquisador_etnia_id_fkey"))
 	private Ethnicity etniaPes;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "endereco_residencial_id", insertable = true, updatable = true, foreignKey = @ForeignKey(name="pesquisador_endereco_residencial_id_fkey"))
+
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="endereco_residencial_id", insertable=true, updatable=true, foreignKey=@ForeignKey(name="pesquisador_endereco_residencial_id_fkey"))
 	private Address enderecoRes;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "endereco_comercial_id", insertable = true, updatable = true, foreignKey = @ForeignKey(name="pesquisador_endereco_comercial_id_fkey"))
+
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="endereco_comercial_id", insertable=true, updatable = true, foreignKey=@ForeignKey(name="pesquisador_endereco_comercial_id_fkey"))
 	private Address enderecoCom;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "area_conhecimento_id1", insertable = true, updatable = true, foreignKey = @ForeignKey(name="area_conhecimento_id1"))
+
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="area_conhecimento_id1", insertable=true, updatable=true, foreignKey=@ForeignKey(name="area_conhecimento_id1"))
 	private Skill area;
-	
-	public Research(){
-		
+
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="telefone_id", insertable=true, updatable=true, foreignKey=@ForeignKey(name="telefone_id"))
+	private Telephone telefone;
+
+	public Research() {
+
 	}
 
 	public Integer getId() {
@@ -232,7 +237,7 @@ public class Research implements Serializable{
 	public String getRgDataEmissor() {
 		return rgDataEmissor;
 	}
-	
+
 	public void setRgDataEmissor(String rgDataEmissor) {
 		this.rgDataEmissor = rgDataEmissor;
 	}
@@ -248,7 +253,7 @@ public class Research implements Serializable{
 	public String getNascimento() {
 		return nascimento;
 	}
-	
+
 	public void setNascimento(String nascimento) {
 		this.nascimento = nascimento;
 	}
@@ -268,11 +273,11 @@ public class Research implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
-	
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
@@ -352,7 +357,7 @@ public class Research implements Serializable{
 	public Integer getEnderecoPref() {
 		return enderecoPref;
 	}
-	
+
 	public void setEnderecoPref(Integer enderecoPref) {
 		this.enderecoPref = enderecoPref;
 	}
@@ -508,9 +513,9 @@ public class Research implements Serializable{
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	
-	public String getAtivoTexto(){
-		if(this.isAtivo()){
+
+	public String getAtivoTexto() {
+		if (this.isAtivo()) {
 			return "Ativo";
 		}
 		return "Inativo";
@@ -579,6 +584,21 @@ public class Research implements Serializable{
 	public void setArea(Skill area) {
 		this.area = area;
 	}
-	
-	
+
+	public boolean isEstrangeiro() {
+		return estrangeiro;
+	}
+
+	public void setEstrangeiro(boolean estrangeiro) {
+		this.estrangeiro = estrangeiro;
+	}
+
+	public Telephone getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(Telephone telefone) {
+		this.telefone = telefone;
+	}
+
 }

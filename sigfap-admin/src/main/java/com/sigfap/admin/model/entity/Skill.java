@@ -28,10 +28,10 @@ public class Skill implements Serializable{
 	private String verificador;
 	
 	@Column(name="area_conhecimento_nome")
-	private String area_nome;
+	private String nome;
 	
 	@Column(name="area_conhecimento_ativa")
-	private boolean area_ativa;
+	private boolean ativa;
 	
 	@Column(name="area_conhecimento_nivel1")
 	private Integer nivel1;
@@ -53,16 +53,16 @@ public class Skill implements Serializable{
 		return id;
 	}
 	
-	public String getArea_nome() {
-		return area_nome;
+	public String getNome() {
+		return nome;
 	}
 	
 	public String getVerificador() {
 		return verificador;
 	}
 	
-	public boolean isArea_ativa() {
-		return area_ativa;
+	public boolean isAtiva() {
+		return ativa;
 	}
 	
 	public Integer getNivel1() {
@@ -85,12 +85,12 @@ public class Skill implements Serializable{
 		this.id = id;
 	}
 	
-	public void setArea_ativa(boolean area_ativa) {
-		this.area_ativa = area_ativa;
+	public void setAtiva(boolean ativa) {
+		this.ativa = ativa;
 	}
 	
-	public void setArea_nome(String area_nome) {
-		this.area_nome = area_nome;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 	public void setNivel1(Integer nivel1) {

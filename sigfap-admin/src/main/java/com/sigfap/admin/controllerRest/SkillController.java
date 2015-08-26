@@ -20,7 +20,7 @@ import com.sigfap.admin.model.entity.Skill;
 import com.sigfap.admin.security.intercept.annotation.Public;
 
 @Controller
-public class FieldResearchController {
+public class SkillController {
 
 	private final Result result1;
 
@@ -30,33 +30,34 @@ public class FieldResearchController {
 	/**
 	 * @deprecated CDI eyes only
 	 */
-	protected FieldResearchController() {
-		this(null, null);
+	protected SkillController() {
+		this(null);
 	}
 
 	@Inject
-	public FieldResearchController(Result result1, SkillDAO dao) {
+	public SkillController(Result result1) {
 		this.result1 = result1;
-		this.dao = dao;
 	}
 
 	/** V1 - Versão 1 **/
 
 	@Public
-	@Get("/v1/fieldsresearch")
+	@Get
+	@Path("/v1/skills")
 	public void listarArea() {
 		List<Skill> skills = dao.findAll();
 
 		if (!skills.isEmpty()) {
-			com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
+			com.sigfap.admin.json.skill.Result result = new com.sigfap.admin.json.skill.Result();
 
 			result.setValue(skills);
 
 			result1.use(Results.json()).from(result)
 					.exclude("value.pesquisadores").recursive().serialize();
 			result1.include("areas", result);
+			return;
 		} else {
-			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
+			com.sigfap.admin.json.skill.Error error = new com.sigfap.admin.json.skill.Error(
 					"Nenhuma área de conhecimento cadastrada.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);
@@ -64,59 +65,22 @@ public class FieldResearchController {
 	}
 
 	@Public
-	@Post("/v1/fieldresearch")
+	@Post("/v1/skill")
 	public void inserirArea(Skill skill) {
-		skill.setVerificador(skill.getVerificador());
-		skill.setArea_nome(skill.getArea_nome());
-		skill.setArea_ativa(skill.isArea_ativa());
+
 		try {
-			if (skill.getArea_nome() == null) {
-				com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
+
+			if (skill.getNome() == null) {
+				com.sigfap.admin.json.skill.Error error = new com.sigfap.admin.json.skill.Error(
 						"Precisa preencher o nome da área de conhecimento.");
 
 				result1.use(Results.json()).from(error).serialize();
 				result1.include(error);
 				return;
 			} else {
+
 				dao.persist(skill);
-				com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
-
-				result.getValue().add(skill);
-
-				result1.use(Results.json()).from(result)
-						.exclude("value.pesquisadores").recursive().serialize();
-				result1.include(result);
-			}
-		} catch(JDBCConnectionException e){
-			
-			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error("Problema de conexão com o banco.");
-			result1.use(Results.json()).from(error).recursive().serialize();
-			
-		}
-		catch (Exception e) {
-			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
-					"Erro ao cadastrar área de conhecimento.");
-
-			result1.use(Results.json()).from(error).serialize();
-			result1.include(error);
-		}
-	}
-
-	@Public
-	@Put
-	@Path("/v1/fieldresearch")
-	public void editarArea(Skill skill) {
-		try {
-			if (skill.getArea_nome() == null) {
-				com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
-						"Precisa preencher o nome da área de conhecimento.");
-
-				result1.use(Results.json()).from(error).serialize();
-				result1.include(error);
-				return;
-			} else {
-				dao.update(skill);
-				com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
+				com.sigfap.admin.json.skill.Result result = new com.sigfap.admin.json.skill.Result();
 
 				result.getValue().add(skill);
 
@@ -126,38 +90,79 @@ public class FieldResearchController {
 			}
 		} catch (JDBCConnectionException e) {
 
-			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
+			com.sigfap.admin.json.skill.Error error = new com.sigfap.admin.json.skill.Error(
 					"Problema de conexão com o banco.");
 			result1.use(Results.json()).from(error).recursive().serialize();
+			result1.include(error);
 
 		} catch (Exception e) {
-			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
-					"Impossivel editar área de conhecimento.");
+			com.sigfap.admin.json.skill.Error error = new com.sigfap.admin.json.skill.Error(
+					"Erro ao cadastrar área de conhecimento.");
+
 			result1.use(Results.json()).from(error).serialize();
+			result1.include(error);
 		}
 	}
 
 	@Public
-	@Delete("/v1/fieldresearch/{id}")
+	@Put("/v1/skill")
+	public void editarArea(Skill skill) {
+
+		if (skill.getNome() == null) {
+			com.sigfap.admin.json.skill.Error error = new com.sigfap.admin.json.skill.Error(
+					"Preencher o nome da área de conhecimento.");
+			result1.use(Results.json()).from(error).recursive().serialize();
+			result1.include(error);
+			return;
+		}
+
+		else {
+	
+			try {
+
+				dao.update(skill);
+
+				com.sigfap.admin.json.skill.Result result = new com.sigfap.admin.json.skill.Result();
+				result.getValue().add(skill);
+
+				result1.use(Results.json()).from(result)
+						.exclude("value.pesquisadores").recursive().serialize();
+				result1.include(result);
+			}
+
+			catch (Exception e) {
+
+				com.sigfap.admin.json.skill.Error error = new com.sigfap.admin.json.skill.Error(
+						"Impossível editar área de conhecimento.");
+				result1.use(Results.json()).from(error).recursive().serialize();
+				result1.include(error);
+			}
+
+		}
+	}
+
+	@Public
+	@Delete
+	@Path("/v1/skill/{id}")
 	public void removerArea(int id) {
 		Skill skill = dao.findById(id);
 		try {
 			dao.deleteById(id);
-			com.sigfap.admin.json.fieldresearch.Result result = new com.sigfap.admin.json.fieldresearch.Result();
+			com.sigfap.admin.json.skill.Result result = new com.sigfap.admin.json.skill.Result();
 
 			result.getValue().add(skill);
 
 			result1.use(Results.json()).from(result)
 					.exclude("value.pesquisadores").recursive().serialize();
 			result1.include(result);
-		} catch(JDBCConnectionException e){
-			
-			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error("Problema de conexão com o banco.");
+		} catch (JDBCConnectionException e) {
+
+			com.sigfap.admin.json.skill.Error error = new com.sigfap.admin.json.skill.Error(
+					"Problema de conexão com o banco.");
 			result1.use(Results.json()).from(error).recursive().serialize();
-			
-		}
-		catch (Exception e) {
-			com.sigfap.admin.json.fieldresearch.Error error = new com.sigfap.admin.json.fieldresearch.Error(
+
+		} catch (Exception e) {
+			com.sigfap.admin.json.skill.Error error = new com.sigfap.admin.json.skill.Error(
 					"Área não encontrada.");
 			result1.use(Results.json()).from(error).serialize();
 			result1.include(error);

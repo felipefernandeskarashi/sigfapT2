@@ -253,6 +253,7 @@ public class ResearcherController {
 	public void editarPesquisador(Research research) {
 
 		String validaEmail2 = research.getEmail();
+		System.out.println(">>>>>>>> email 1 " + research.getEmail());
 
 		if (verificadorEmail.isEmail(validaEmail2) == false) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
@@ -266,24 +267,22 @@ public class ResearcherController {
 			research.setSenha(DigestUtils.shaHex(research.getSenha()));
 		}
 
-		else {
-			try {
+		System.out.println(">>>>>>>> email 2 " + research.getEmail());
+		try {
 
-				dao.update(research);
+			dao.update(research);
 
-				com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
-				result.getValue().add(research);
-				result1.use(Results.json()).from(result).recursive()
-						.serialize();
-				result1.include(result);
-			}
+			com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
+			result.getValue().add(research);
+			result1.use(Results.json()).from(result).recursive().serialize();
+			result1.include(result);
+		}
 
-			catch (Exception e) {
-				com.sigfap.admin.json.research.Error error2 = new com.sigfap.admin.json.research.Error(
-						"Impossível editar pesquisador.");
-				result1.use(Results.json()).from(error2).serialize();
-				result1.include(error2);
-			}
+		catch (Exception e) {
+			com.sigfap.admin.json.research.Error error2 = new com.sigfap.admin.json.research.Error(
+					"Impossível editar pesquisador.");
+			result1.use(Results.json()).from(error2).serialize();
+			result1.include(error2);
 		}
 
 	}

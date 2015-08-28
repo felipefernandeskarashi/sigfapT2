@@ -224,7 +224,10 @@ public class ResearcherController {
 				com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
 				result.getValue().add(salvo);
 
-				result1.use(Results.json()).from(result).serialize();
+				result1.use(Results.json()).from(result).include("value").include("value.enderecoRes").include("value.enderecoCom")
+				.include("value.etniaPes").include("value.area")
+				.include("value.telefones")
+				.exclude("value.pesquisadorUnidades").serialize();
 				result1.include(result);
 
 			} catch (JDBCConnectionException e) {
@@ -274,7 +277,10 @@ public class ResearcherController {
 
 			com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
 			result.getValue().add(research);
-			result1.use(Results.json()).from(result).recursive().serialize();
+			result1.use(Results.json()).from(result).include("value").include("value.enderecoRes").include("value.enderecoCom")
+			.include("value.etniaPes").include("value.area")
+			.include("value.telefones")
+			.exclude("value.pesquisadorUnidades").serialize();
 			result1.include(result);
 		}
 
@@ -301,7 +307,10 @@ public class ResearcherController {
 			com.sigfap.admin.json.research.Result result = new com.sigfap.admin.json.research.Result();
 			result.getValue().add(research);
 
-			result1.use(Results.json()).from(result).recursive().serialize();
+			result1.use(Results.json()).from(result).include("value").include("value.enderecoRes").include("value.enderecoCom")
+			.include("value.etniaPes").include("value.area")
+			.include("value.telefones")
+			.exclude("value.pesquisadorUnidades").serialize();
 			result1.include(result);
 
 		} catch (JDBCConnectionException e) {

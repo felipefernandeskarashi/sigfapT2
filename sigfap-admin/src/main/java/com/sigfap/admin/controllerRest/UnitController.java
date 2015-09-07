@@ -210,6 +210,7 @@ public class UnitController {
 					new com.sigfap.admin.json.unit.Error(
 							"Unidade não encontrada");
 			result1.use(Results.json()).from(error).recursive().serialize();
+			e.printStackTrace();
 		}
 	}
 	

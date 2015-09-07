@@ -6,6 +6,15 @@ import javax.inject.Inject;
 
 import org.hibernate.exception.JDBCConnectionException;
 
+import com.sigfap.admin.model.dao.AddressDAO;
+import com.sigfap.admin.model.dao.RepresentativeDAO;
+import com.sigfap.admin.model.dao.UnitDAO;
+import com.sigfap.admin.model.entity.Address;
+import com.sigfap.admin.model.entity.Representative;
+import com.sigfap.admin.model.entity.Unit;
+import com.sigfap.admin.security.intercept.annotation.Public;
+import com.sigfap.admin.validation.CheckCpf;
+
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
@@ -13,14 +22,6 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
-
-import com.sigfap.admin.json.representative.Error;
-import com.sigfap.admin.model.dao.AddressDAO;
-import com.sigfap.admin.model.dao.RepresentativeDAO;
-import com.sigfap.admin.model.entity.Address;
-import com.sigfap.admin.model.entity.Representative;
-import com.sigfap.admin.security.intercept.annotation.Public;
-import com.sigfap.admin.validation.CheckCpf;
 
 @Controller
 public class RepresentativeController {
@@ -32,6 +33,12 @@ public class RepresentativeController {
 	
 	@Inject
 	private AddressDAO dao2;
+	
+	@Inject
+	private UnitDAO dao3;
+	
+	@Inject
+	private Unit unidade;
 	
 	@Inject
 	private CheckCpf cpfValidation;
@@ -96,12 +103,13 @@ public class RepresentativeController {
 	
 	@Public
 	@Post("/v1/representative")
-	public void registrar(Representative representative, Address address){
+	public void registrar(Representative representative, Address address, Integer unidade_id){
 		String teste = representative.getNome();
 		if(teste == null){
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error("Informe um nome");
 			result1.use(Results.json()).from(error).recursive().serialize();
+			return;
 		}
 		teste = null;
 		teste = representative.getCpf();
@@ -109,16 +117,20 @@ public class RepresentativeController {
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error("Informe um CPF");
 			result1.use(Results.json()).from(error).recursive().serialize();
+			return;
 		}
 		
 		if(!cpfValidation.isCpf(representative.getCpf())){
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error("Informe um CPF válido");
 			result1.use(Results.json()).from(error).recursive().serialize();
+			return;
 		}
 		try{
-			dao2.persist(address);
-			representative.setEnderecoRep(address);
+			if(address.getRua() != null){
+				dao2.persist(address);
+				representative.setEnderecoRep(address);
+			}
 		}catch(Exception e){
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error("Não foi possível salvar endereço");
@@ -126,7 +138,19 @@ public class RepresentativeController {
 		}
 		
 		try{
+			unidade = dao3.findById(unidade_id);
+		}catch(Exception e){
+			e.printStackTrace();
+			com.sigfap.admin.json.representative.Error error =
+					new com.sigfap.admin.json.representative.Error(
+							"Unidade não encontrada");
+			result1.use(Results.json()).from(error).recursive().serialize();
+		}
+		
+		try{
 			dao.persist(representative);
+			unidade.getRepresentanteUnidades().add(representative);
+			dao3.update(unidade);
 			com.sigfap.admin.json.representative.Result result = 
 					new com.sigfap.admin.json.representative.Result();
 			result.getRepresentantes().add(representative);
@@ -140,7 +164,7 @@ public class RepresentativeController {
 			com.sigfap.admin.json.representative.Error error =
 					new com.sigfap.admin.json.representative.Error(
 							"Não foi possível criar o Representante");
-			result1.use(Results.json()).from(error).recursive().serialize();
+			result1.use(Results.json()).from(error).serialize();
 		}
 	}
 	

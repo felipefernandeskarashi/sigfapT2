@@ -107,12 +107,6 @@ public class ResearcherController {
 			Address address2, Integer etniaId, Integer areaId,
 			Telephone telephone) {
 
-		System.out.println("area " + areaId + " etnia " + etniaId + " address "
-				+ address.getCidadeEstrangeira() + " telephone "
-				+ telephone.getNumero());
-
-		System.out.println("Estrangeiro " + research.isEstrangeiro());
-
 		String validaEmail = research.getEmail();
 		String validaCpf = research.getCpf();
 		String validaRg = research.getRg();
@@ -256,7 +250,6 @@ public class ResearcherController {
 	public void editarPesquisador(Research research) {
 
 		String validaEmail2 = research.getEmail();
-		System.out.println(">>>>>>>> email 1 " + research.getEmail());
 
 		if (verificadorEmail.isEmail(validaEmail2) == false) {
 			com.sigfap.admin.json.research.Error error = new com.sigfap.admin.json.research.Error(
@@ -270,7 +263,6 @@ public class ResearcherController {
 			research.setSenha(DigestUtils.shaHex(research.getSenha()));
 		}
 
-		System.out.println(">>>>>>>> email 2 " + research.getEmail());
 		try {
 
 			dao.update(research);
